@@ -1,8 +1,16 @@
 <resources>
     <string name="app_name">Quizz</string>
-    <string name="option">Options</string>
-    <string name="logo">Logo</string>
-    <string name="quizz_id">Quizz ID</string>
-    <string name="default_question">Default question</string>
-    <string name="ok">OK</string>
+    <string name="btn_options">Options</string>
+    <string name="txt_quizzID">Quizz ID</string>
+    <string name="txt_defaultQuestion">Default question</string>
+    <string name="txt_OK">OK</string>
+    <string name="txt_options">Options</string>
+    <string name="btn_editQuizz">Modifier Quizz</string>
+    <string name="btn_dlQuizz">DL Quizz</string>
+    <string name="txt_editQuizz">Modif Quizz</string>
+    <string name="txt_editExplain">Clic sur un quizz pour le modifier ou appuie sur + pour en ajouter</string>
+    <string name="txt_dlQuizz">DL Quizz</string>
+    <string name="txt_url">URL</string>
+    <string name="txt_logo">Logo</string>
+    <string name="btn_home">Home</string>
 </resources>
