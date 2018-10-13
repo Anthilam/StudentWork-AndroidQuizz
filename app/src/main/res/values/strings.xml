@@ -1,0 +1,8 @@
+<resources>
+    <string name="app_name">Quizz</string>
+    <string name="option">Options</string>
+    <string name="logo">Logo</string>
+    <string name="quizz_id">Quizz ID</string>
+    <string name="default_question">Default question</string>
+    <string name="ok">OK</string>
+</resources>
