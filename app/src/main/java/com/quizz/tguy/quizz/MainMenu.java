@@ -3,6 +3,8 @@ package com.quizz.tguy.quizz;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
@@ -20,5 +22,10 @@ public class MainMenu extends AppCompatActivity {
                 startActivity(int_settings);
             }
         });
+
+        RecyclerView recyclerView = findViewById(R.id.quizzList);
+        final RoomRecyclerAdapter adapter = new RoomRecyclerAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 }

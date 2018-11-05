@@ -1,6 +1,7 @@
 package com.quizz.tguy.quizz;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -13,7 +14,7 @@ public class SettingsMenu extends AppCompatActivity {
         setContentView(R.layout.settings_layout);
 
         Button btn_editquizz = findViewById(R.id.btn_editQuizz);
-        Button btn_dlquizz = findViewById(R.id.btn_dlQuizz);
+        final Button btn_dlquizz = findViewById(R.id.btn_dlQuizz);
         Button btn_home = findViewById(R.id.btn_home);
 
         btn_editquizz.setOnClickListener(new View.OnClickListener() {
@@ -27,8 +28,7 @@ public class SettingsMenu extends AppCompatActivity {
         btn_dlquizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Intent int_dlquizz = new Intent(getApplicationContext(), DLquizzMenu.class);
-                startActivity(int_dlquizz);
+                btn_dlquizz.setBackgroundColor(Color.RED);
             }
         });
 
