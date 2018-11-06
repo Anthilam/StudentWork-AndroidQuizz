@@ -19,6 +19,7 @@
 
         <activity android:name=".SettingsMenu"></activity>
         <activity android:name=".EditquizzMenu"></activity>
+        <activity android:name=".Quizz"></activity>
 
     </application>
 

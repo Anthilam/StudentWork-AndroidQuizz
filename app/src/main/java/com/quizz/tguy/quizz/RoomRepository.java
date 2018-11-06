@@ -8,25 +8,25 @@ import java.util.List;
 
 public class RoomRepository {
 
-    private RoomDAO mWordDao;
-    private LiveData<List<RoomWord>> mAllWords;
+    private RoomDAO dao;
+    private LiveData<List<RoomQuizz>> allQuizz;
 
     RoomRepository(Application application) {
-        RoomWordDatabase db = RoomWordDatabase.getDatabase(application);
-        mWordDao = db.wordDao();
-        mAllWords = mWordDao.getAllWords();
+        RoomQuizzDatabase db = RoomQuizzDatabase.getDatabase(application);
+        dao = db.dao();
+        allQuizz = dao.getAllQuizz();
     }
 
-    LiveData<List<RoomWord>> getAllWords() {
-        return mAllWords;
+    LiveData<List<RoomQuizz>> getAllQuizz() {
+        return allQuizz;
     }
 
 
-    public void insert (RoomWord word) {
-        new insertAsyncTask(mWordDao).execute(word);
+    public void insert (RoomQuizz quizz) {
+        new insertAsyncTask(dao).execute(quizz);
     }
 
-    private static class insertAsyncTask extends AsyncTask<RoomWord, Void, Void> {
+    private static class insertAsyncTask extends AsyncTask<RoomQuizz, Void, Void> {
 
         private RoomDAO mAsyncTaskDao;
 
@@ -35,7 +35,7 @@ public class RoomRepository {
         }
 
         @Override
-        protected Void doInBackground(final RoomWord... params) {
+        protected Void doInBackground(final RoomQuizz... params) {
             mAsyncTaskDao.insert(params[0]);
             return null;
         }

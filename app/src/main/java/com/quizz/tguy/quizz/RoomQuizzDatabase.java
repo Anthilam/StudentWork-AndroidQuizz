@@ -8,20 +8,21 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {RoomWord.class}, version = 1)
-public abstract class RoomWordDatabase extends RoomDatabase {
-    public abstract RoomDAO wordDao();
+@Database(entities = {RoomQuizz.class}, version = 3, exportSchema = false)
+public abstract class RoomQuizzDatabase extends RoomDatabase {
+    public abstract RoomDAO dao();
 
-    private static volatile RoomWordDatabase INSTANCE;
+    private static volatile RoomQuizzDatabase INSTANCE;
 
-    static RoomWordDatabase getDatabase(final Context context) {
+    static RoomQuizzDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
-            synchronized (RoomWordDatabase.class) {
+            synchronized (RoomQuizzDatabase.class) {
                 if (INSTANCE == null) {
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            RoomWordDatabase.class, "word_database")
+                            RoomQuizzDatabase.class, "word_database")
                             .addCallback(sRoomDatabaseCallback)
+                            .fallbackToDestructiveMigration()
                             .build();
                 }
             }
@@ -29,32 +30,31 @@ public abstract class RoomWordDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
-    private static RoomDatabase.Callback sRoomDatabaseCallback =
-            new RoomDatabase.Callback(){
+    private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
 
-                @Override
-                public void onOpen (@NonNull SupportSQLiteDatabase db){
-                    super.onOpen(db);
-                    new PopulateDbAsync(INSTANCE).execute();
-                }
-            };
+        @Override
+        public void onOpen (@NonNull SupportSQLiteDatabase db){
+            super.onOpen(db);
+            new PopulateDbAsync(INSTANCE).execute();
+        }
+    };
 
 
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final RoomDAO mDao;
 
-        PopulateDbAsync(RoomWordDatabase db) {
-            mDao = db.wordDao();
+        PopulateDbAsync(RoomQuizzDatabase db) {
+            mDao = db.dao();
         }
 
         @Override
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
-            RoomWord word = new RoomWord("Hello");
-            mDao.insert(word);
-            word = new RoomWord("World");
-            mDao.insert(word);
+            RoomQuizz quizz = new RoomQuizz(1);
+            mDao.insert(quizz);
+            quizz = new RoomQuizz(2);
+            mDao.insert(quizz);
             return null;
         }
     }

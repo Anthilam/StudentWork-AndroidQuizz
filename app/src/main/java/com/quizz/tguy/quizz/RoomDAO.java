@@ -11,11 +11,13 @@ import java.util.List;
 public interface RoomDAO {
 
     @Insert
-    void insert(RoomWord word);
+    void insert(RoomQuizz quizz);
 
-    @Query("DELETE FROM word_table")
+    @Query("DELETE FROM quizz_table")
     void deleteAll();
 
-    @Query("SELECT * from word_table ORDER BY word ASC")
-    LiveData<List<RoomWord>> getAllWords();
+    @Query("SELECT * from quizz_table ORDER BY quizz_id ASC")
+    LiveData<List<RoomQuizz>> getAllQuizz();
+
+    // Rajouter une requete pour avoir un seul quizz
 }
