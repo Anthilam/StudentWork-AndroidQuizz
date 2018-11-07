@@ -10,6 +10,7 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
+// RoomTypeConverters : allows conversion of the lists for the Room using JSON
 public class RoomTypeConverters {
     static Gson gson = new Gson();
 

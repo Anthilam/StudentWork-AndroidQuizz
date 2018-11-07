@@ -3,10 +3,10 @@ package com.quizz.tguy.quizz;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
-import android.arch.persistence.room.Room;
 
 import java.util.List;
 
+// RoomViewModel : View Model for the Room
 public class RoomViewModel extends AndroidViewModel {
     private RoomRepository mRepository;
 
@@ -18,7 +18,15 @@ public class RoomViewModel extends AndroidViewModel {
         allQuizz = mRepository.getAllQuizz();
     }
 
-    LiveData<List<RoomQuizz>> getAllQuizz() { return allQuizz; }
+    LiveData<List<RoomQuizz>> getAllQuizz() {
+        return allQuizz;
+    }
 
-    public void insert(RoomQuizz quizz) { mRepository.insert(quizz); }
+    public void insert(RoomQuizz quizz) {
+        mRepository.insert(quizz);
+    }
+
+    public RoomQuizz getQuizzById(int id) {
+        return mRepository.getQuizzById(id);
+    }
 }

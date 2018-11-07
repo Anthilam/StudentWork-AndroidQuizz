@@ -6,6 +6,7 @@ import android.os.AsyncTask;
 
 import java.util.List;
 
+// RoomRepository : Repository for the Room
 public class RoomRepository {
 
     private RoomDAO dao;
@@ -21,9 +22,12 @@ public class RoomRepository {
         return allQuizz;
     }
 
-
-    public void insert (RoomQuizz quizz) {
+    public void insert(RoomQuizz quizz) {
         new insertAsyncTask(dao).execute(quizz);
+    }
+
+    public RoomQuizz getQuizzById(int id) {
+        return dao.getQuizzById(id);
     }
 
     private static class insertAsyncTask extends AsyncTask<RoomQuizz, Void, Void> {

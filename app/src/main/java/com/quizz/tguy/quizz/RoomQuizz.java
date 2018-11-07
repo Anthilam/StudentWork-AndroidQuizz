@@ -10,6 +10,8 @@ import android.support.annotation.NonNull;
 import java.util.ArrayList;
 import java.util.List;
 
+// RoomQuizz : database structure for a Quizz
+
 @Entity(tableName = "quizz_table")
 public class RoomQuizz {
     @PrimaryKey
@@ -71,5 +73,10 @@ public class RoomQuizz {
 
     public void setQuestions_list(List<String> questions_list) {
         this.questions_list = questions_list;
+    }
+
+    public void addQuestionWithAnswers(String question, List<String> answers){
+        this.questions_list.add(question);
+        this.answers_list.add(answers);
     }
 }

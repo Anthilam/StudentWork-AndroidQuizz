@@ -41,7 +41,8 @@
         app:layout_constraintBottom_toTopOf="@+id/btn_validate"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/question" />
+        app:layout_constraintTop_toBottomOf="@+id/question"
+        tools:listitem="@layout/quizz_recyclerview_item"/>
 
     <Button
         android:id="@+id/btn_validate"

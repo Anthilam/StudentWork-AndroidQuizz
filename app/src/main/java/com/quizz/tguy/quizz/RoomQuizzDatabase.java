@@ -8,8 +8,13 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-@Database(entities = {RoomQuizz.class}, version = 3, exportSchema = false)
+import java.util.ArrayList;
+import java.util.List;
+
+// RoomQuizzDatabase : Room database creation
+@Database(entities = {RoomQuizz.class}, version = 1, exportSchema = false)
 public abstract class RoomQuizzDatabase extends RoomDatabase {
+
     public abstract RoomDAO dao();
 
     private static volatile RoomQuizzDatabase INSTANCE;
@@ -22,6 +27,7 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             RoomQuizzDatabase.class, "word_database")
                             .addCallback(sRoomDatabaseCallback)
+                            .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
                             .build();
                 }
@@ -39,7 +45,6 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
         }
     };
 
-
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
 
         private final RoomDAO mDao;
@@ -52,6 +57,10 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
             RoomQuizz quizz = new RoomQuizz(1);
+            List<String> l = new ArrayList<>();
+            l.add("RUSH B!");
+            l.add("DAVAI");
+            quizz.addQuestionWithAnswers("Cyka Blyat ?", l);
             mDao.insert(quizz);
             quizz = new RoomQuizz(2);
             mDao.insert(quizz);

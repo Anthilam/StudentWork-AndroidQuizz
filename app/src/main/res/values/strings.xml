@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">Quizz</string>
     <string name="btn_options">Options</string>
-    <string name="txt_quizzID">Quizz ID</string>
+    <string name="txt_quizzID">Quizz </string>
     <string name="txt_defaultQuestion">Default question</string>
     <string name="txt_OK">OK</string>
     <string name="txt_options">Options</string>

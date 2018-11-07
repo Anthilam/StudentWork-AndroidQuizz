@@ -10,61 +10,75 @@ import android.widget.TextView;
 
 import java.util.List;
 
+// RoomRecyclerAdaptater : adapter for the RecyclerView in the main menu
 public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapter.QuizzViewHolder> {
 
-    class QuizzViewHolder extends RecyclerView.ViewHolder {
+    // QuizzViewHolder : ViewHolder for each item of the RecyclerView
+    class QuizzViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView quizzItemView;
+        private int id;
 
         private QuizzViewHolder(View itemView) {
             super(itemView);
 
-            itemView.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    Context context = v.getContext();
-                    // Passer l'id du quizz dans l'intent
-                    Intent intent_quizz = new Intent(context, Quizz.class);
-                    context.startActivity(intent_quizz);
-                }
-            });
+            itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
 
             quizzItemView = itemView.findViewById(R.id.quizzItemView);
+        }
+
+        // onClick
+        @Override
+        public void onClick(View v) {
+            // Start the quizz selected by the user
+            Context context = v.getContext();
+            Intent intent_quizz = new Intent(context, Quizz.class);
+            intent_quizz.putExtra("id", id); // Put the id of the quizz
+            context.startActivity(intent_quizz);
         }
     }
 
     private final LayoutInflater mInflater;
-    private List<RoomQuizz> allQuizz; // Cached copy of words
+    private List<RoomQuizz> allQuizz; // Cached copy of all quizzes
 
-    RoomRecyclerAdapter(Context context) { mInflater = LayoutInflater.from(context); }
+    // Constructor
+    RoomRecyclerAdapter(Context context) {
+        mInflater = LayoutInflater.from(context);
+    }
 
+    // onCreateViewHolder
     @Override
     public QuizzViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.recyclerview_item, parent, false);
+        View itemView = mInflater.inflate(R.layout.mainmenu_recyclerview_item, parent, false);
         return new QuizzViewHolder(itemView);
     }
 
+    // onBindViewHolder
     @Override
     public void onBindViewHolder(QuizzViewHolder holder, int position) {
         if (allQuizz != null) {
             RoomQuizz current = allQuizz.get(position);
-            holder.quizzItemView.setText(current.getStrQuizz_id());
+            holder.quizzItemView.setText(current.getStrQuizz_id()); // Set text with quizz id
+            holder.id = allQuizz.get(position).getQuizz_id(); // Set the id for the extra in the intent
         } else {
             // Covers the case of data not being ready yet.
             holder.quizzItemView.setText("No ID");
         }
     }
 
+    // setQuizzes : set a new list of quizzes and refresh the view
     void setQuizzes(List<RoomQuizz> quizzes){
         allQuizz = quizzes;
         notifyDataSetChanged();
     }
 
-    // getItemCount() is called many times, and when it is first called,
-    // mWords has not been updated (means initially, it's null, and we can't return null).
+    // getItemCount
     @Override
     public int getItemCount() {
-        if (allQuizz != null)
+        if (allQuizz != null) {
             return allQuizz.size();
-        else return 0;
+        }
+        else {
+            return 0;
+        }
     }
 }

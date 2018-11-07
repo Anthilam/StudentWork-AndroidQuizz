@@ -7,6 +7,8 @@ import android.arch.persistence.room.Query;
 
 import java.util.List;
 
+// RoomDAO : DAO interface for the Room
+
 @Dao
 public interface RoomDAO {
 
@@ -19,5 +21,6 @@ public interface RoomDAO {
     @Query("SELECT * from quizz_table ORDER BY quizz_id ASC")
     LiveData<List<RoomQuizz>> getAllQuizz();
 
-    // Rajouter une requete pour avoir un seul quizz
+    @Query("SELECT * from quizz_table WHERE quizz_id = :id")
+    RoomQuizz getQuizzById(int id);
 }
