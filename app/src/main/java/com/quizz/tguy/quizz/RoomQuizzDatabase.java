@@ -12,7 +12,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 // RoomQuizzDatabase : Room database creation
-@Database(entities = {RoomQuizz.class}, version = 1, exportSchema = false)
+@Database(entities = {RoomQuizz.class}, version = 2, exportSchema = false)
 public abstract class RoomQuizzDatabase extends RoomDatabase {
 
     public abstract RoomDAO dao();
@@ -61,6 +61,7 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
             l.add("RUSH B!");
             l.add("DAVAI");
             quizz.addQuestionWithAnswers("Cyka Blyat ?", l);
+            quizz.addRight_answer(1, 1);
             mDao.insert(quizz);
             quizz = new RoomQuizz(2);
             mDao.insert(quizz);

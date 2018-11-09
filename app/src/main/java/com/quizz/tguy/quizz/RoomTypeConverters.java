@@ -46,4 +46,19 @@ public class RoomTypeConverters {
         return gson.toJson(listListString);
     }
 
+    @TypeConverter
+    public static List<Integer> stringToListInteger(String data) {
+        if (data == null) {
+            return Collections.emptyList();
+        }
+
+        Type listType = new TypeToken<List<Integer>>() {}.getType();
+
+        return gson.fromJson(data, listType);
+    }
+
+    @TypeConverter
+    public static String listIntegerToString(List<Integer> listInteger) {
+        return gson.toJson(listInteger);
+    }
 }

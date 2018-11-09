@@ -1,6 +1,7 @@
 package com.quizz.tguy.quizz;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,21 +14,36 @@ import java.util.List;
 public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecyclerAdapter.AnswersViewHolder> {
 
     // AnswersViewHolder : ViewHolder for each item of the RecyclerView
-    class AnswersViewHolder extends RecyclerView.ViewHolder {
+    class AnswersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView answersItemView;
+        private int nAnswer;
 
         private AnswersViewHolder(View itemView) {
             super(itemView);
+
+            itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
+
             answersItemView = itemView.findViewById(R.id.answersItemView);
+        }
+
+        // onClick
+        @Override
+        public void onClick(View v) {
+            if (mContext instanceof Quizz) {
+                ((Quizz)mContext).setSelectedAnswer(nAnswer);
+                answersItemView.setBackgroundColor(Color.GREEN);
+            }
         }
     }
 
     private final LayoutInflater mInflater;
     private List<String> allAnswers; // Cached copy of answers
+    private Context mContext;
 
     // Constructor
     AnswersRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+        mContext = context;
     }
 
     // onCreateViewHolder
@@ -43,6 +59,7 @@ public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecycler
         if (allAnswers != null) {
             String current = allAnswers.get(position);
             holder.answersItemView.setText(current); // Set answer text
+            holder.nAnswer = position;
         }
         else {
             // Covers the case of data not being ready yet.

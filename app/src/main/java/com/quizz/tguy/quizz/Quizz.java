@@ -20,6 +20,8 @@ public class Quizz extends AppCompatActivity {
     private int nbQuestions = 0;
     private int nbAnswers = 0;
     private int trackID = 0;
+    private int selectedAnswer = 0;
+    private int score = 0;
 
     // onCreate
     @Override
@@ -72,14 +74,26 @@ public class Quizz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // When we validate our answer, get to the next question/answers
+                if (selectedAnswer == rq.getRight_answer(trackID))
+                {
+                    score++;
+                }
+
                 trackID++;
                 if (trackID < nbAnswers && trackID < nbQuestions)
                 {
                     question.setText(rq.getQuestions(trackID));
                     adapter.setAnswers(rq.getAnswers(trackID));
                 }
+                else {
+                    question.setText(score + "/" + nbQuestions);
+                }
             }
         });
+    }
+
+    public void setSelectedAnswer(int nAnswer) {
+        selectedAnswer = nAnswer;
     }
 }
 
