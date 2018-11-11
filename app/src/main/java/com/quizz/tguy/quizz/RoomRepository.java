@@ -44,4 +44,8 @@ public class RoomRepository {
             return null;
         }
     }
+
+    void update(RoomQuizz quizz) {
+        dao.update(quizz);
+    }
 }

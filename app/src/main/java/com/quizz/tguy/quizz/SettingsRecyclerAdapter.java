@@ -10,8 +10,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-// RoomRecyclerAdaptater : adapter for the RecyclerView in the main menu
-public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapter.QuizzViewHolder> {
+// SettingsRecyclerAdapter : adapter for the RecyclerView in the main menu
+public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecyclerAdapter.QuizzViewHolder> {
 
     // QuestionsViewHolder : ViewHolder for each item of the RecyclerView
     class QuizzViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -20,9 +20,7 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
 
         private QuizzViewHolder(View itemView) {
             super(itemView);
-
             itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
-
             quizzItemView = itemView.findViewById(R.id.quizzItemView);
         }
 
@@ -31,7 +29,7 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
         public void onClick(View v) {
             // Start the quizz selected by the user
             Context context = v.getContext();
-            Intent intent_quizz = new Intent(context, Quizz.class);
+            Intent intent_quizz = new Intent(context, EditQuizz.class);
             intent_quizz.putExtra("id", id); // Put the id of the quizz
             context.startActivity(intent_quizz);
         }
@@ -41,7 +39,7 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
     private List<RoomQuizz> allQuizz; // Cached copy of all quizzes
 
     // Constructor
-    RoomRecyclerAdapter(Context context) {
+    SettingsRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 

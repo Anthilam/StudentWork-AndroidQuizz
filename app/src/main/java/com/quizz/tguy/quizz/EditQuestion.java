@@ -10,29 +10,36 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.TextView;
 
 import java.util.List;
 
 // EditQuizz : quizz edition menu available in the settings of the app
-public class EditQuizz extends AppCompatActivity
+public class EditQuestion extends AppCompatActivity
 {
     // View Model to access the Room
     private RoomViewModel mQuizzViewModel;
+    private RoomQuizz rq;
+    private int id;
 
     // onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.editquizz_layout);
+        setContentView(R.layout.editquestion_layout);
 
         // Get the current quizz with the intent extra
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        final RoomQuizz rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("id", 0));
+        rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("qid", 0));
+        id = getIntent().getIntExtra("id", 0);
 
         // Set the title
-        TextView title = findViewById(R.id.titleModifQuizz);
-        title.append(" " + rq.getStrQuizz_id());
+        TextView title = findViewById(R.id.titleModifQuestion);
+        title.append(" " + (id+1));
+
+        final EditText question = findViewById(R.id.questionEdit);
+        question.setText(rq.getQuestions(id));
 
         // Set the home button behaviour
         Button btn_home = findViewById(R.id.btn_home);
@@ -46,9 +53,18 @@ public class EditQuizz extends AppCompatActivity
             }
         });
 
+        Button btn_upQ = findViewById(R.id.btn_upQ);
+        btn_upQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rq.setQuestionInAListOfQuestions(question.getText().toString(), id);
+                mQuizzViewModel.update(rq);
+            }
+        });
+
         // Fill the main RecyclerView that contains the question list
         RecyclerView recyclerView = findViewById(R.id.questionsList);
-        final EditQuizzRecyclerAdapter adapter = new EditQuizzRecyclerAdapter(this);
+        final EditQuestionRecyclerAdapter adapter = new EditQuestionRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
@@ -57,10 +73,14 @@ public class EditQuizz extends AppCompatActivity
         mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
             @Override
             public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
-                adapter.setQuestions(rq.getQuestions_list());
-                adapter.setQuizzId(rq.getQuizz_id());
+                adapter.setAnswers(rq.getAnswers(id));
             }
         });
+    }
+
+    void setAnswers(String answer, int index) {
+        rq.setAnswerInAListOfAnswer(answer, id, index);
+        mQuizzViewModel.update(rq);
     }
 
     @Override

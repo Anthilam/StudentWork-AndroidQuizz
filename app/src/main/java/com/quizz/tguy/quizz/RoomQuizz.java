@@ -79,8 +79,20 @@ public class RoomQuizz {
         this.answers_list = answers_list;
     }
 
+    public void setAListOfAnswers(List<String> answers, int index) {
+        this.answers_list.set(index, answers);
+    }
+
+    public void setAnswerInAListOfAnswer(String answer, int index, int pos) {
+        this.answers_list.get(index).set(pos, answer);
+    }
+
     public void setQuestions_list(List<String> questions_list) {
         this.questions_list = questions_list;
+    }
+
+    public void setQuestionInAListOfQuestions(String question, int index) {
+        this.questions_list.set(index, question);
     }
 
     public void addQuestionWithAnswers(String question, List<String> answers){

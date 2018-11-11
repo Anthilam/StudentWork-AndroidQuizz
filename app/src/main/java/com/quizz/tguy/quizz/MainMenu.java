@@ -31,7 +31,7 @@ public class MainMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start settings activity
-                Intent int_settings = new Intent(getApplicationContext(), SettingsMenu.class);
+                Intent int_settings = new Intent(getApplicationContext(), Settings.class);
                 startActivity(int_settings);
             }
         });
@@ -50,5 +50,12 @@ public class MainMenu extends AppCompatActivity {
                 adapter.setQuizzes(roomAllQuizz);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 }

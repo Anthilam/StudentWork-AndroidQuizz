@@ -13,4 +13,6 @@
     <string name="txt_url">URL</string>
     <string name="txt_logo">Logo</string>
     <string name="btn_home">Home</string>
+    <string name="txt_editQuestion">Question</string>
+    <string name="btn_update">Update</string>
 </resources>

@@ -1,27 +1,41 @@
 package com.quizz.tguy.quizz;
 
+import android.arch.lifecycle.Observer;
+import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 
-// SettingsMenu : settings menu available in the main menu of the app
-public class SettingsMenu extends AppCompatActivity {
+import java.util.List;
+
+// Settings : settings menu available in the main menu of the app
+public class Settings extends AppCompatActivity {
+    // View Model to access the Room
+    private RoomViewModel mQuizzViewModel;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
 
-        // Set edit button behaviour
-        Button btn_editquizz = findViewById(R.id.btn_editQuizz);
-        btn_editquizz.setOnClickListener(new View.OnClickListener() {
+        // Fill the main RecyclerView that contains the quizz list
+        RecyclerView recyclerView = findViewById(R.id.quizzListSettings);
+        final SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Observe any modification in the quizz list and adapt the RecyclerView
+        mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+        mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
             @Override
-            public void onClick(View v) {
-                // Start the edit quizz activity
-                Intent int_editquizz = new Intent(getApplicationContext(), EditQuizzMenu.class);
-                startActivity(int_editquizz);
+            public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
+                adapter.setQuizzes(roomAllQuizz);
             }
         });
 
@@ -46,5 +60,12 @@ public class SettingsMenu extends AppCompatActivity {
                 startActivity(int_home);
             }
         });
+    }
+
+    @Override
+    protected void onRestart() {
+        super.onRestart();
+        finish();
+        startActivity(getIntent());
     }
 }

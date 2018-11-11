@@ -17,11 +17,10 @@
             </intent-filter>
         </activity>
 
-        <activity android:name=".SettingsMenu"></activity>
-        <activity android:name=".EditQuizzMenu"></activity>
+        <activity android:name=".Settings"></activity>
         <activity android:name=".Quizz"></activity>
         <activity android:name=".EditQuizz"></activity>
-
+        <activity android:name=".EditQuestion"></activity>
     </application>
 
 </manifest>

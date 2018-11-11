@@ -29,4 +29,8 @@ public class RoomViewModel extends AndroidViewModel {
     public RoomQuizz getQuizzById(int id) {
         return mRepository.getQuizzById(id);
     }
+
+    void update(RoomQuizz quizz) {
+        mRepository.update(quizz);
+    }
 }
