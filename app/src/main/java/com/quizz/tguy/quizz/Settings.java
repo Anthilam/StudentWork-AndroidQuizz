@@ -60,6 +60,25 @@ public class Settings extends AppCompatActivity {
                 startActivity(int_home);
             }
         });
+
+        final Button btn_addQuizz = findViewById(R.id.btn_addQuizz);
+        btn_addQuizz.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mQuizzViewModel.insert(new RoomQuizz(mQuizzViewModel.getAllQuizz().getValue().size()));
+                btn_addQuizz.setEnabled(false);
+                btn_addQuizz.postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                        btn_addQuizz.setEnabled(true);
+                    }
+                }, 500);
+            }
+        });
+    }
+
+    protected void delQuizz(int index) {
+        mQuizzViewModel.delete(index);
     }
 
     @Override

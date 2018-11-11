@@ -10,11 +10,11 @@
         android:id="@+id/quizzItemView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@android:color/holo_blue_bright"/>
+        android:background="@android:color/holo_orange_light"/>
 
     <Button
-        android:id="@+id/btn_delQ"
+        android:id="@+id/btn_delQuizz"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:text="@string/btn_delQ" />
+        android:text="@string/btn_delQuizz" />
 </LinearLayout>

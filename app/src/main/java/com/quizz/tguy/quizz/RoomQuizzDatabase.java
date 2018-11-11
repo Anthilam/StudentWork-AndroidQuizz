@@ -56,14 +56,13 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
         @Override
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
-            RoomQuizz quizz = new RoomQuizz(1);
+            RoomQuizz quizz = new RoomQuizz(0);
             List<String> l = new ArrayList<>();
             l.add("RUSH B!");
             l.add("DAVAI");
-            quizz.addQuestionWithAnswers("Cyka Blyat ?", l);
-            quizz.addRight_answer(1, 1);
+            quizz.addQuestionWithAnswers("Cyka Blyat ?", l, 1);
             mDao.insert(quizz);
-            quizz = new RoomQuizz(2);
+            quizz = new RoomQuizz(1);
             mDao.insert(quizz);
             return null;
         }

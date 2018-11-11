@@ -22,6 +22,13 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
             super(itemView);
             itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
             quizzItemView = itemView.findViewById(R.id.quizzItemView);
+
+            itemView.findViewById(R.id.btn_delQuizz).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((Settings)mContext).delQuizz(id);
+                }
+            });
         }
 
         // onClick
@@ -37,16 +44,18 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
 
     private final LayoutInflater mInflater;
     private List<RoomQuizz> allQuizz; // Cached copy of all quizzes
+    private Context mContext;
 
     // Constructor
     SettingsRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+        mContext = context;
     }
 
     // onCreateViewHolder
     @Override
     public QuizzViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-        View itemView = mInflater.inflate(R.layout.mainmenu_recyclerview_item, parent, false);
+        View itemView = mInflater.inflate(R.layout.settings_recyclerview_item, parent, false);
         return new QuizzViewHolder(itemView);
     }
 

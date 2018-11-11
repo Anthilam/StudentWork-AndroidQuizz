@@ -30,7 +30,15 @@ public class RoomViewModel extends AndroidViewModel {
         return mRepository.getQuizzById(id);
     }
 
-    void update(RoomQuizz quizz) {
-        mRepository.update(quizz);
+    void updateQuizz(RoomQuizz quizz) {
+        mRepository.updateQuizz(quizz);
+    }
+
+    void updateQuizzList(List<RoomQuizz> quizzList) {
+        mRepository.updateQuizzList(quizzList);
+    }
+
+    void delete(int index) {
+        mRepository.delete(allQuizz.getValue().get(index));
     }
 }

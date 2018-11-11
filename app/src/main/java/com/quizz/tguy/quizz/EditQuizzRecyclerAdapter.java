@@ -22,6 +22,13 @@ public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecy
             super(itemView);
             itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
             quizzItemView = itemView.findViewById(R.id.quizzItemView);
+
+            itemView.findViewById(R.id.btn_delQ).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((EditQuizz)mContext).delQuestion(id);
+                }
+            });
         }
 
         // onClick
@@ -38,11 +45,13 @@ public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecy
 
     private final LayoutInflater mInflater;
     private List<String> questions; // Cached copy of all quizzes
+    private Context mContext;
     private int qid;
 
     // Constructor
     EditQuizzRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
+        mContext = context;
     }
 
     // onCreateViewHolder
@@ -57,7 +66,7 @@ public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecy
     public void onBindViewHolder(QuestionsViewHolder holder, int position) {
         if (questions != null) {
             String current = questions.get(position);
-            holder.quizzItemView.setText(current); // Set text with quizz id
+            holder.quizzItemView.setText("Question "+ (position+1) + " : " + current); // Set text with quizz id
             holder.id = position;
         } else {
             // Covers the case of data not being ready yet.

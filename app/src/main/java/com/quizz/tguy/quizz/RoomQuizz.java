@@ -29,7 +29,7 @@ public class RoomQuizz {
 
     @ColumnInfo(name = "right_answer")
     @TypeConverters(RoomTypeConverters.class)
-    private List<Integer> right_answer_list;
+    private List<Integer> good_answer_list;
 
     public RoomQuizz() { }
 
@@ -38,13 +38,8 @@ public class RoomQuizz {
         quizz_id = index;
         questions_list = new ArrayList<>();
         answers_list = new ArrayList<>();
-        right_answer_list = new ArrayList<>();
-        questions_list.add("Yes or No ?");
-        List<String> l = new ArrayList<>();
-        l.add("Yes!");
-        l.add("No..");
-        answers_list.add(l);
-        addRight_answer(0, 0);
+        good_answer_list = new ArrayList<>();
+        addDefaultQuestion();
     }
 
     public int getQuizz_id() {
@@ -79,10 +74,6 @@ public class RoomQuizz {
         this.answers_list = answers_list;
     }
 
-    public void setAListOfAnswers(List<String> answers, int index) {
-        this.answers_list.set(index, answers);
-    }
-
     public void setAnswerInAListOfAnswer(String answer, int index, int pos) {
         this.answers_list.get(index).set(pos, answer);
     }
@@ -95,24 +86,46 @@ public class RoomQuizz {
         this.questions_list.set(index, question);
     }
 
-    public void addQuestionWithAnswers(String question, List<String> answers){
+    public void addQuestionWithAnswers(String question, List<String> answers, int rightAnswer){
         this.questions_list.add(question);
         this.answers_list.add(answers);
+        this.good_answer_list.add(rightAnswer);
     }
 
-    public List<Integer> getRight_answer_list() {
-        return right_answer_list;
+    public void addDefaultQuestion() {
+        List<String> l = new ArrayList<>();
+        l.add("Oui");
+        l.add("Non");
+        addQuestionWithAnswers("Oui ou Non ?", l, 0);
     }
 
-    public void setRight_answer_list(List<Integer> right_answer_list) {
-        this.right_answer_list = right_answer_list;
+    public List<Integer> getGood_answer_list() {
+        return good_answer_list;
     }
 
-    public int getRight_answer(int index) {
-        return right_answer_list.get(index);
+    public void setGood_answer_list(List<Integer> good_answer_list) {
+        this.good_answer_list = good_answer_list;
     }
 
-    public void addRight_answer(int right_answer, int index) {
-        right_answer_list.add(index, right_answer);
+    public int getGood_answer(int index) {
+        return good_answer_list.get(index);
+    }
+
+    public void addAnswerToList(String answer, int list) {
+        this.answers_list.get(list).add(answer);
+    }
+
+    public void delAnswerFromList(int answer, int list) {
+        this.answers_list.get(list).remove(answer);
+    }
+
+    public void delQuestion(int question) {
+        this.questions_list.remove(question);
+        this.answers_list.remove(question);
+        this.good_answer_list.remove(question);
+    }
+
+    public void setGood_answer(int index, int goodAnswer) {
+        this.good_answer_list.set(index, goodAnswer);
     }
 }

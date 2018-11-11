@@ -2,7 +2,6 @@ package com.quizz.tguy.quizz;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
@@ -74,7 +73,7 @@ public class Quizz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // When we validate our answer, get to the next question/answers
-                if (selectedAnswer == rq.getRight_answer(trackID))
+                if (selectedAnswer == rq.getGood_answer(trackID))
                 {
                     score++;
                 }

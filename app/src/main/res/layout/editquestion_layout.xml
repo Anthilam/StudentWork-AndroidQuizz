@@ -11,35 +11,33 @@
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginStart="28dp"
-        android:layout_marginTop="38dp"
-        android:layout_marginBottom="28dp"
         android:text="@string/txt_editQuestion"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/textModifQuizz"
+        app:layout_constraintBottom_toBottomOf="@+id/btn_home"
         app:layout_constraintStart_toEndOf="@+id/btn_home"
-        app:layout_constraintTop_toTopOf="@+id/btn_home" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_home" />
 
     <TextView
         android:id="@+id/textModifQuizz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="118dp"
+        android:layout_marginTop="19dp"
         android:text="@string/txt_editExplain"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/titleModifQuestion" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/questionsList"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        android:layout_marginTop="29dp"
-        android:layout_marginBottom="48dp"
+        android:layout_marginTop="78dp"
+        android:layout_marginBottom="73dp"
         android:background="@android:color/darker_gray"
         android:textAlignment="center"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_upQ"
+        app:layout_constraintTop_toTopOf="@+id/btn_upQ"
         tools:listitem="@layout/editquestion_recyclerview_item" />
 
     <Button
@@ -54,14 +52,11 @@
 
     <EditText
         android:id="@+id/questionEdit"
-        android:layout_width="0dp"
-        android:layout_height="0dp"
-        android:layout_marginTop="31dp"
-        android:layout_marginEnd="12dp"
-        android:layout_marginBottom="16dp"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="30dp"
         android:text="@string/txt_defaultQuestion"
-        app:layout_constraintBottom_toTopOf="@+id/questionsList"
-        app:layout_constraintEnd_toStartOf="@+id/btn_upQ"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textModifQuizz" />
 
@@ -69,11 +64,47 @@
         android:id="@+id/btn_upQ"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="38dp"
-        android:layout_marginEnd="11dp"
+        android:layout_marginTop="31dp"
+        android:layout_marginEnd="51dp"
         android:text="@string/btn_update"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/questionEdit"
         app:layout_constraintTop_toBottomOf="@+id/textModifQuizz" />
+
+    <Button
+        android:id="@+id/btn_addA"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="44dp"
+        android:layout_marginEnd="72dp"
+        android:layout_marginBottom="16dp"
+        android:text="@string/btn_addA"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/goodAnswerEdit"
+        app:layout_constraintHorizontal_bias="0.148"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <EditText
+        android:id="@+id/goodAnswerEdit"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginEnd="26dp"
+        android:layout_marginBottom="16dp"
+        android:ems="10"
+        android:inputType="number"
+        android:text="@string/txt_defaultGoodAnswer"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_setGoodAnswer"
+        app:layout_constraintStart_toEndOf="@+id/btn_addA" />
+
+    <Button
+        android:id="@+id/btn_setGoodAnswer"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="7dp"
+        android:layout_marginEnd="18dp"
+        android:text="@string/btn_setGoodAnswer"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/goodAnswerEdit"
+        app:layout_constraintTop_toBottomOf="@+id/questionsList" />
 </android.support.constraint.ConstraintLayout>

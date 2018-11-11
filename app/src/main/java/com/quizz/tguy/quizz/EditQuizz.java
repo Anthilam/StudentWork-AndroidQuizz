@@ -2,6 +2,7 @@ package com.quizz.tguy.quizz;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -19,6 +20,7 @@ public class EditQuizz extends AppCompatActivity
 {
     // View Model to access the Room
     private RoomViewModel mQuizzViewModel;
+    private RoomQuizz rq;
 
     // onCreate
     @Override
@@ -28,7 +30,7 @@ public class EditQuizz extends AppCompatActivity
 
         // Get the current quizz with the intent extra
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        final RoomQuizz rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("id", 0));
+        rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("id", 0));
 
         // Set the title
         TextView title = findViewById(R.id.titleModifQuizz);
@@ -43,6 +45,21 @@ public class EditQuizz extends AppCompatActivity
                 Intent int_home = new Intent(getApplicationContext(), MainMenu.class);
                 int_home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(int_home);
+            }
+        });
+
+        Button btn_addQ = findViewById(R.id.btn_addQ);
+        btn_addQ.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                // Start the quizz selected by the user
+                rq.addDefaultQuestion();
+                mQuizzViewModel.updateQuizz(rq);
+                Context context = v.getContext();
+                Intent intent_quizz = new Intent(context, EditQuestion.class);
+                intent_quizz.putExtra("qid", rq.getQuizz_id()); // Put the id of the quizz
+                intent_quizz.putExtra("id", rq.getQuestions_list().size()-1);
+                context.startActivity(intent_quizz);
             }
         });
 
@@ -61,6 +78,11 @@ public class EditQuizz extends AppCompatActivity
                 adapter.setQuizzId(rq.getQuizz_id());
             }
         });
+    }
+
+    void delQuestion(int question) {
+        rq.delQuestion(question);
+        mQuizzViewModel.updateQuizz(rq);
     }
 
     @Override

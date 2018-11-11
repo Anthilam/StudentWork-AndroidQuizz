@@ -41,6 +41,24 @@ public class EditQuestion extends AppCompatActivity
         final EditText question = findViewById(R.id.questionEdit);
         question.setText(rq.getQuestions(id));
 
+        final EditText goodAnswer = findViewById(R.id.goodAnswerEdit);
+        goodAnswer.setText(""+rq.getGood_answer(id));
+
+        final RecyclerView recyclerView = findViewById(R.id.questionsList);
+        // Fill the main RecyclerView that contains the question list
+        final EditQuestionRecyclerAdapter adapter = new EditQuestionRecyclerAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Observe any modification in the question list and adapt the RecyclerView
+        mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+        mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
+            @Override
+            public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
+                adapter.setAnswers(rq.getAnswers(id));
+            }
+        });
+
         // Set the home button behaviour
         Button btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
@@ -58,29 +76,38 @@ public class EditQuestion extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 rq.setQuestionInAListOfQuestions(question.getText().toString(), id);
-                mQuizzViewModel.update(rq);
+                mQuizzViewModel.updateQuizz(rq);
             }
         });
 
-        // Fill the main RecyclerView that contains the question list
-        RecyclerView recyclerView = findViewById(R.id.questionsList);
-        final EditQuestionRecyclerAdapter adapter = new EditQuestionRecyclerAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Observe any modification in the question list and adapt the RecyclerView
-        mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
+        Button btn_addA = findViewById(R.id.btn_addA);
+        btn_addA.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
-                adapter.setAnswers(rq.getAnswers(id));
+            public void onClick(View v) {
+                rq.addAnswerToList("Default", id);
+                mQuizzViewModel.updateQuizz(rq);
+                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+            }
+        });
+
+        Button btn_setGoodAnswer = findViewById(R.id.btn_setGoodAnswer);
+        btn_setGoodAnswer.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rq.setGood_answer(id, Integer.parseInt(goodAnswer.getText().toString()));
+                mQuizzViewModel.updateQuizz(rq);
             }
         });
     }
 
     void setAnswers(String answer, int index) {
         rq.setAnswerInAListOfAnswer(answer, id, index);
-        mQuizzViewModel.update(rq);
+        mQuizzViewModel.updateQuizz(rq);
+    }
+
+    void delAnswer(int answer) {
+        rq.delAnswerFromList(answer, id);
+        mQuizzViewModel.updateQuizz(rq);
     }
 
     @Override

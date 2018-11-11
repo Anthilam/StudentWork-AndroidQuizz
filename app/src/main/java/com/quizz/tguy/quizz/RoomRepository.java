@@ -2,6 +2,7 @@ package com.quizz.tguy.quizz;
 
 import android.app.Application;
 import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Room;
 import android.os.AsyncTask;
 
 import java.util.List;
@@ -45,7 +46,15 @@ public class RoomRepository {
         }
     }
 
-    void update(RoomQuizz quizz) {
-        dao.update(quizz);
+    void updateQuizz(RoomQuizz quizz) {
+        dao.updateQuizz(quizz);
+    }
+
+    void updateQuizzList(List<RoomQuizz> quizz_list) {
+        dao.udpateQuizzList(quizz_list);
+    }
+
+    void delete(RoomQuizz quizz) {
+        dao.delete(quizz);
     }
 }

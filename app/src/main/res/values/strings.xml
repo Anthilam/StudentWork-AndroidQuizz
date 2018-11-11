@@ -8,11 +8,19 @@
     <string name="btn_editQuizz">Modifier Quizz</string>
     <string name="btn_dlQuizz">DL Quizz</string>
     <string name="txt_editQuizz">Modif Quizz</string>
-    <string name="txt_editExplain">Clic sur un quizz pour le modifier ou appuie sur + pour en ajouter</string>
+    <string name="txt_editExplain">Clic sur une question pour le modifier ou appuie sur + pour en ajouter</string>
     <string name="txt_dlQuizz">DL Quizz</string>
     <string name="txt_url">URL</string>
     <string name="txt_logo">Logo</string>
     <string name="btn_home">Home</string>
     <string name="txt_editQuestion">Question</string>
     <string name="btn_update">Update</string>
+    <string name="btn_addQ">Add</string>
+    <string name="btn_addA">Add</string>
+    <string name="btn_delA">Delete</string>
+    <string name="btn_addQuizz">Add</string>
+    <string name="btn_delQuizz">Delete</string>
+    <string name="btn_delQ">Delete</string>
+    <string name="btn_setGoodAnswer">Set</string>
+    <string name="txt_defaultGoodAnswer">0</string>
 </resources>

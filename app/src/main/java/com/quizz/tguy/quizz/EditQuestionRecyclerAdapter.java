@@ -5,6 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
@@ -13,20 +14,27 @@ import java.util.List;
 public class EditQuestionRecyclerAdapter extends RecyclerView.Adapter<EditQuestionRecyclerAdapter.QuestionsViewHolder> {
 
     // QuestionsViewHolder : ViewHolder for each item of the RecyclerView
-    class QuestionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+    class QuestionsViewHolder extends RecyclerView.ViewHolder {
         private final TextView questionItemView;
         private int id;
 
         private QuestionsViewHolder(View itemView) {
             super(itemView);
-            itemView.findViewById(R.id.btn_update).setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
-            questionItemView = itemView.findViewById(R.id.editText);
-        }
+            itemView.findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((EditQuestion)mContext).setAnswers(questionItemView.getText().toString(), id);
+                }
+            });
 
-        // onClick
-        @Override
-        public void onClick(View v) {
-            ((EditQuestion)mContext).setAnswers(questionItemView.getText().toString(), id);
+            questionItemView = itemView.findViewById(R.id.editText);
+
+            itemView.findViewById(R.id.btn_delA).setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((EditQuestion)mContext).delAnswer(id);
+                }
+            });
         }
     }
 

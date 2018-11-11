@@ -2,8 +2,10 @@ package com.quizz.tguy.quizz;
 
 import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
+import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
 import android.arch.persistence.room.Query;
+import android.arch.persistence.room.Room;
 import android.arch.persistence.room.Update;
 
 import java.util.List;
@@ -26,5 +28,11 @@ public interface RoomDAO {
     RoomQuizz getQuizzById(int id);
 
     @Update
-    void update(RoomQuizz quizz);
+    void updateQuizz(RoomQuizz quizz);
+
+    @Update
+    void udpateQuizzList(List<RoomQuizz> quizz_list);
+
+    @Delete
+    void delete(RoomQuizz quizz);
 }
