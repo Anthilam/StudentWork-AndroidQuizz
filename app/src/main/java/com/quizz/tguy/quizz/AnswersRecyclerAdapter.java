@@ -20,9 +20,7 @@ public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecycler
 
         private AnswersViewHolder(View itemView) {
             super(itemView);
-
             itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
-
             answersItemView = itemView.findViewById(R.id.answersItemView);
         }
 
@@ -30,8 +28,9 @@ public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecycler
         @Override
         public void onClick(View v) {
             if (mContext instanceof Quizz) {
+                // Set the selected answer and notify the adapter to actualize button colors
                 ((Quizz)mContext).setSelectedAnswer(nAnswer);
-                answersItemView.setBackgroundColor(Color.GREEN);
+                notifyDataSetChanged();
             }
         }
     }
@@ -64,6 +63,14 @@ public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecycler
         else {
             // Covers the case of data not being ready yet.
             holder.answersItemView.setText("No answer");
+        }
+
+        // Set the selected answer with a visible color
+        if (position == ((Quizz)mContext).getSelectedAnswer()) {
+            holder.answersItemView.setBackgroundColor(Color.GREEN);
+        }
+        else {
+            holder.answersItemView.setBackgroundColor(Color.GRAY);
         }
     }
 

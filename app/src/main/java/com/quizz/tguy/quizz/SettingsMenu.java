@@ -20,7 +20,7 @@ public class SettingsMenu extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // Start the edit quizz activity
-                Intent int_editquizz = new Intent(getApplicationContext(), EditquizzMenu.class);
+                Intent int_editquizz = new Intent(getApplicationContext(), EditQuizzMenu.class);
                 startActivity(int_editquizz);
             }
         });

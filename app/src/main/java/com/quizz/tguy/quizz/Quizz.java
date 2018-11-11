@@ -19,8 +19,8 @@ public class Quizz extends AppCompatActivity {
 
     private int nbQuestions = 0;
     private int nbAnswers = 0;
-    private int trackID = 0;
-    private int selectedAnswer = 0;
+    private int trackID = 0; // Progress tracking
+    private int selectedAnswer = -1;
     private int score = 0;
 
     // onCreate
@@ -57,7 +57,7 @@ public class Quizz extends AppCompatActivity {
         }
 
         // Set the home button behaviour
-        Button btn_home = findViewById(R.id.btn_home);
+        final Button btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,20 +80,41 @@ public class Quizz extends AppCompatActivity {
                 }
 
                 trackID++;
+                // While we have questions
                 if (trackID < nbAnswers && trackID < nbQuestions)
                 {
                     question.setText(rq.getQuestions(trackID));
                     adapter.setAnswers(rq.getAnswers(trackID));
+                    selectedAnswer = -1;
                 }
+                // If we are out of questions
                 else {
-                    question.setText(score + "/" + nbQuestions);
+                    question.setText(score + "/" + nbQuestions); // Display the score
+
+                    // Set a new button behaviour
+                    btn_ok.setText("Menu");
+                    btn_ok.setOnClickListener(new View.OnClickListener() {
+                        @Override
+                        public void onClick(View v) {
+                            // Return to the main menu activity
+                            Intent int_home = new Intent(getApplicationContext(), MainMenu.class);
+                            int_home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
+                            startActivity(int_home);
+                        }
+                    });
                 }
             }
         });
     }
 
+    // setSelectedAnswer
     public void setSelectedAnswer(int nAnswer) {
         selectedAnswer = nAnswer;
+    }
+
+    // getSelectedAnswer
+    public int getSelectedAnswer() {
+        return selectedAnswer;
     }
 }
 
