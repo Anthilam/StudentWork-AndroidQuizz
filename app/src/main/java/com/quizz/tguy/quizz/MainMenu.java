@@ -38,7 +38,7 @@ public class MainMenu extends AppCompatActivity {
 
         // Fill the main RecyclerView that contains the quizz list
         RecyclerView recyclerView = findViewById(R.id.quizzList);
-        final RoomRecyclerAdapter adapter = new RoomRecyclerAdapter(this);
+        final MainMenuRecyclerAdapter adapter = new MainMenuRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 

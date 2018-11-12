@@ -3,6 +3,7 @@ package com.quizz.tguy.quizz;
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
 import android.arch.lifecycle.LiveData;
+import android.arch.persistence.room.Room;
 
 import java.util.List;
 
@@ -38,7 +39,7 @@ public class RoomViewModel extends AndroidViewModel {
         mRepository.updateQuizzList(quizzList);
     }
 
-    void delete(int index) {
-        mRepository.delete(allQuizz.getValue().get(index));
+    void delete(RoomQuizz rq) {
+        mRepository.delete(rq);
     }
 }

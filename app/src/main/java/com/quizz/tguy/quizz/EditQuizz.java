@@ -34,7 +34,23 @@ public class EditQuizz extends AppCompatActivity
 
         // Set the title
         TextView title = findViewById(R.id.titleModifQuizz);
-        title.append(" " + rq.getStrQuizz_id());
+        title.append(" " + rq.getTitle());
+
+        // Fill the main RecyclerView that contains the question list
+        final RecyclerView recyclerView = findViewById(R.id.questionsList);
+        final EditQuizzRecyclerAdapter adapter = new EditQuizzRecyclerAdapter(this);
+        recyclerView.setAdapter(adapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        // Observe any modification in the question list and adapt the RecyclerView
+        mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
+        mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
+            @Override
+            public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
+                adapter.setQuestions(rq.getQuestions_list());
+                adapter.setQuizzId(rq.getQuizz_id());
+            }
+        });
 
         // Set the home button behaviour
         Button btn_home = findViewById(R.id.btn_home);
@@ -60,22 +76,6 @@ public class EditQuizz extends AppCompatActivity
                 intent_quizz.putExtra("qid", rq.getQuizz_id()); // Put the id of the quizz
                 intent_quizz.putExtra("id", rq.getQuestions_list().size()-1);
                 context.startActivity(intent_quizz);
-            }
-        });
-
-        // Fill the main RecyclerView that contains the question list
-        RecyclerView recyclerView = findViewById(R.id.questionsList);
-        final EditQuizzRecyclerAdapter adapter = new EditQuizzRecyclerAdapter(this);
-        recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-
-        // Observe any modification in the question list and adapt the RecyclerView
-        mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
-        mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
-            @Override
-            public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
-                adapter.setQuestions(rq.getQuestions_list());
-                adapter.setQuizzId(rq.getQuizz_id());
             }
         });
     }

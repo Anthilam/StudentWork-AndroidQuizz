@@ -11,7 +11,7 @@ import android.widget.TextView;
 import java.util.List;
 
 // RoomRecyclerAdaptater : adapter for the RecyclerView in the main menu
-public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapter.QuizzViewHolder> {
+public class MainMenuRecyclerAdapter extends RecyclerView.Adapter<MainMenuRecyclerAdapter.QuizzViewHolder> {
 
     // QuestionsViewHolder : ViewHolder for each item of the RecyclerView
     class QuizzViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -41,7 +41,7 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
     private List<RoomQuizz> allQuizz; // Cached copy of all quizzes
 
     // Constructor
-    RoomRecyclerAdapter(Context context) {
+    MainMenuRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
     }
 
@@ -57,7 +57,7 @@ public class RoomRecyclerAdapter extends RecyclerView.Adapter<RoomRecyclerAdapte
     public void onBindViewHolder(QuizzViewHolder holder, int position) {
         if (allQuizz != null) {
             RoomQuizz current = allQuizz.get(position);
-            holder.quizzItemView.setText(current.getStrQuizz_id()); // Set text with quizz id
+            holder.quizzItemView.setText(current.getTitle()); // Set text with quizz id
             holder.id = allQuizz.get(position).getQuizz_id(); // Set the id for the extra in the intent
         } else {
             // Covers the case of data not being ready yet.

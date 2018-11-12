@@ -14,10 +14,12 @@ import java.util.List;
 
 @Entity(tableName = "quizz_table")
 public class RoomQuizz {
-    @PrimaryKey
-    @NonNull
+    @PrimaryKey(autoGenerate = true)
     @ColumnInfo(name = "quizz_id")
     private int quizz_id;
+
+    @ColumnInfo(name = "title")
+    private String title;
 
     @ColumnInfo(name = "questions")
     @TypeConverters(RoomTypeConverters.class)
@@ -31,11 +33,7 @@ public class RoomQuizz {
     @TypeConverters(RoomTypeConverters.class)
     private List<Integer> good_answer_list;
 
-    public RoomQuizz() { }
-
-    @Ignore
-    public RoomQuizz(int index) {
-        quizz_id = index;
+    public RoomQuizz() {
         questions_list = new ArrayList<>();
         answers_list = new ArrayList<>();
         good_answer_list = new ArrayList<>();
@@ -96,6 +94,7 @@ public class RoomQuizz {
         List<String> l = new ArrayList<>();
         l.add("Oui");
         l.add("Non");
+        setTitle("Quizz par défaut");
         addQuestionWithAnswers("Oui ou Non ?", l, 0);
     }
 
@@ -127,5 +126,13 @@ public class RoomQuizz {
 
     public void setGood_answer(int index, int goodAnswer) {
         this.good_answer_list.set(index, goodAnswer);
+    }
+
+    public String getTitle() {
+        return this.title;
+    }
+
+    public void setTitle(String title) {
+        this.title = title;
     }
 }

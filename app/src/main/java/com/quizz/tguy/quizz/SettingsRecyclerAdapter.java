@@ -17,6 +17,7 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
     class QuizzViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView quizzItemView;
         private int id;
+        private int listpos;
 
         private QuizzViewHolder(View itemView) {
             super(itemView);
@@ -26,7 +27,7 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
             itemView.findViewById(R.id.btn_delQuizz).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((Settings)mContext).delQuizz(id);
+                    ((Settings)mContext).delQuizz(listpos);
                 }
             });
         }
@@ -64,8 +65,9 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
     public void onBindViewHolder(QuizzViewHolder holder, int position) {
         if (allQuizz != null) {
             RoomQuizz current = allQuizz.get(position);
-            holder.quizzItemView.setText(current.getStrQuizz_id()); // Set text with quizz id
-            holder.id = allQuizz.get(position).getQuizz_id(); // Set the id for the extra in the intent
+            holder.quizzItemView.setText(current.getTitle()); // Set text with quizz id
+            holder.id = current.getQuizz_id(); // Set the id for the extra in the intent
+            holder.listpos = position;
         } else {
             // Covers the case of data not being ready yet.
             holder.quizzItemView.setText("No ID");

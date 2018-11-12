@@ -25,7 +25,7 @@ public class Settings extends AppCompatActivity {
         setContentView(R.layout.settings_layout);
 
         // Fill the main RecyclerView that contains the quizz list
-        RecyclerView recyclerView = findViewById(R.id.quizzListSettings);
+        final RecyclerView recyclerView = findViewById(R.id.quizzListSettings);
         final SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
@@ -65,20 +65,22 @@ public class Settings extends AppCompatActivity {
         btn_addQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mQuizzViewModel.insert(new RoomQuizz(mQuizzViewModel.getAllQuizz().getValue().size()));
+                mQuizzViewModel.insert(new RoomQuizz());
+                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
+                /* Button delay if Primary key duplication
                 btn_addQuizz.setEnabled(false);
                 btn_addQuizz.postDelayed(new Runnable() {
                     @Override
                     public void run() {
                         btn_addQuizz.setEnabled(true);
                     }
-                }, 500);
+                }, 500);*/
             }
         });
     }
 
     protected void delQuizz(int index) {
-        mQuizzViewModel.delete(index);
+        mQuizzViewModel.delete(mQuizzViewModel.getAllQuizz().getValue().get(index));
     }
 
     @Override

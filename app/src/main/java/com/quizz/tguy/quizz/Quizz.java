@@ -36,7 +36,7 @@ public class Quizz extends AppCompatActivity {
 
         // Set the title
         TextView title = findViewById(R.id.quizzID);
-        title.append(" " + rq.getStrQuizz_id());
+        title.setText(rq.getTitle());
 
         // Set the question
         final TextView question = findViewById(R.id.question);
