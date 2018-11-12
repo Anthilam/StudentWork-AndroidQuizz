@@ -40,6 +40,14 @@ public class RoomQuizz {
         addDefaultQuestion();
     }
 
+    @Ignore
+    public RoomQuizz(String title) {
+        questions_list = new ArrayList<>();
+        answers_list = new ArrayList<>();
+        good_answer_list = new ArrayList<>();
+        setTitle(title);
+    }
+
     public int getQuizz_id() {
         return quizz_id;
     }

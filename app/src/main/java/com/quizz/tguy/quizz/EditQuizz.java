@@ -34,7 +34,7 @@ public class EditQuizz extends AppCompatActivity
 
         // Set the title
         TextView title = findViewById(R.id.titleModifQuizz);
-        title.append(" " + rq.getTitle());
+        title.append("\n" + rq.getTitle());
 
         // Fill the main RecyclerView that contains the question list
         final RecyclerView recyclerView = findViewById(R.id.questionsList);
