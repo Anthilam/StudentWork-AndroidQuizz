@@ -10,17 +10,15 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
 
-// EditQuizz : quizz edition menu available in the settings of the app
+// EditQuizz : Activity that shows the list of question available for edition for a quizz
 public class EditQuizz extends AppCompatActivity
 {
-    // View Model to access the Room
-    private RoomViewModel mQuizzViewModel;
+    private RoomViewModel mQuizzViewModel;  // View model that allows access to the Room
     private RoomQuizz rq;
 
     // onCreate
@@ -29,21 +27,21 @@ public class EditQuizz extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editquizz_layout);
 
-        // Get the current quizz with the intent extra
+        // Get the quizz to edit with the Intent extra
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
         rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("id", 0));
 
-        // Set the title
-        TextView title = findViewById(R.id.titleModifQuizz);
+        // Set the title with the name of the quizz
+        TextView title = findViewById(R.id.titleEditQuizz);
         title.append("\n" + rq.getTitle());
 
-        // Fill the main RecyclerView that contains the question list
-        final RecyclerView recyclerView = findViewById(R.id.questionsList);
+        // Create the RecyclerView that contains the list of questions
+        final RecyclerView recyclerView = findViewById(R.id.answersList);
         final EditQuizzRecyclerAdapter adapter = new EditQuizzRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Observe any modification in the question list and adapt the RecyclerView
+        // Observe any modification in the questions list and adapt the RecyclerView
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
         mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
             @Override
@@ -58,34 +56,35 @@ public class EditQuizz extends AppCompatActivity
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Return to the main menu
                 Intent int_home = new Intent(getApplicationContext(), MainMenu.class);
                 int_home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(int_home);
             }
         });
 
-        ImageButton btn_addQ = findViewById(R.id.btn_addQ);
-        btn_addQ.setOnClickListener(new View.OnClickListener() {
+        // Set the addQuestion button behaviour
+        ImageButton btn_addQuestion = findViewById(R.id.btn_addQuestion);
+        btn_addQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start the quizz selected by the user
-                rq.addDefaultQuestion();
-                mQuizzViewModel.updateQuizz(rq);
-                Context context = v.getContext();
+                rq.addDefaultQuestion();            // Add a default question to the quizz
+                mQuizzViewModel.updateQuizz(rq);    // Update the database
+                Context context = v.getContext();   // Launch the EditQuestion activity
                 Intent intent_quizz = new Intent(context, EditQuestion.class);
-                intent_quizz.putExtra("qid", rq.getQuizz_id()); // Put the id of the quizz
-                intent_quizz.putExtra("id", rq.getQuestions_list().size()-1);
+                intent_quizz.putExtra("qid", rq.getQuizz_id()); // Put the quizz id in the extras
+                intent_quizz.putExtra("id", rq.getQuestions_list().size()-1); // Put the question id in the extras
                 context.startActivity(intent_quizz);
             }
         });
     }
 
-    void delQuestion(int question) {
+    // delQuestion : function called within the RecyclerView to delete a question in the questions list
+    protected void delQuestion(int question) {
         rq.delQuestion(question);
         mQuizzViewModel.updateQuizz(rq);
     }
 
+    // onRestart, restart the Activity to prevent wrong RecyclerView refreshes
     @Override
     protected void onRestart() {
         super.onRestart();

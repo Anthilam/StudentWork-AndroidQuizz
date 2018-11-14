@@ -5,41 +5,44 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.TextView;
 
 import java.util.List;
 
-// SettingsRecyclerAdapter : adapter for the RecyclerView in the main menu
-public class EditQuestionRecyclerAdapter extends RecyclerView.Adapter<EditQuestionRecyclerAdapter.QuestionsViewHolder> {
+// EditQuestionRecyclerAdapter : adapter for the RecyclerView in the EditQuestion activity
+public class EditQuestionRecyclerAdapter extends RecyclerView.Adapter<EditQuestionRecyclerAdapter.AnswerViewHolder> {
 
-    // QuestionsViewHolder : ViewHolder for each item of the RecyclerView
-    class QuestionsViewHolder extends RecyclerView.ViewHolder {
-        private final TextView questionItemView;
-        private int id;
+    // AnswerViewHolder : ViewHolder for each item of the RecyclerView
+    class AnswerViewHolder extends RecyclerView.ViewHolder {
+        private final TextView answerItemView;  // The item
+        private int id;                         // The id of the answer
 
-        private QuestionsViewHolder(View itemView) {
+        private AnswerViewHolder(View itemView) {
             super(itemView);
-            itemView.findViewById(R.id.btn_update).setOnClickListener(new View.OnClickListener() {
+
+            // Set updateAnswer button behaviour
+            itemView.findViewById(R.id.btn_updateAnswer).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    ((EditQuestion)mContext).setAnswers(questionItemView.getText().toString(), id);
+                    ((EditQuestion)mContext).setAnswers(answerItemView.getText().toString(), id);
                 }
             });
 
-            questionItemView = itemView.findViewById(R.id.editText);
-
-            itemView.findViewById(R.id.btn_delA).setOnClickListener(new View.OnClickListener() {
+            // Set delAnswer button behaviour
+            itemView.findViewById(R.id.btn_delAnswer).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((EditQuestion)mContext).delAnswer(id);
                 }
             });
+
+            // Get the TextView
+            answerItemView = itemView.findViewById(R.id.answerEditText);
         }
     }
 
     private final LayoutInflater mInflater;
-    private List<String> answers; // Cached copy of all quizzes
+    private List<String> answers; // Cached copy of all answers
     private Context mContext;
 
     // Constructor
@@ -50,26 +53,26 @@ public class EditQuestionRecyclerAdapter extends RecyclerView.Adapter<EditQuesti
 
     // onCreateViewHolder
     @Override
-    public QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public AnswerViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.editquestion_recyclerview_item, parent, false);
-        return new QuestionsViewHolder(itemView);
+        return new AnswerViewHolder(itemView);
     }
 
     // onBindViewHolder
     @Override
-    public void onBindViewHolder(QuestionsViewHolder holder, int position) {
+    public void onBindViewHolder(AnswerViewHolder holder, int position) {
         if (answers != null) {
-            String current = answers.get(position);
-            holder.questionItemView.setText(current); // Set text with quizz id
-            holder.id = position;
+            String current = answers.get(position); // Get the answer string
+            holder.answerItemView.setText(current); // Set item with the answer string
+            holder.id = position;                   // Set the id
         } else {
             // Covers the case of data not being ready yet.
-            holder.questionItemView.setText("No ID");
+            holder.answerItemView.setText("No answer");
         }
     }
 
-    // setQuizzes : set a new list of quizzes and refresh the view
-    void setAnswers(List<String> answersList){
+    // setQuizzes : set a new list of answers and refresh the view
+    protected void setAnswers(List<String> answersList){
         answers = answersList;
         notifyDataSetChanged();
     }

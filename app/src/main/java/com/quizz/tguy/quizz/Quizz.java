@@ -2,7 +2,6 @@ package com.quizz.tguy.quizz;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
-import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.GridLayoutManager;
@@ -12,11 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-// Quizz : a quizz available in the main menu of the app
+// Quizz : Activity representing a playable quizz
 public class Quizz extends AppCompatActivity {
-
-    // View Model to access the Room
-    private RoomViewModel mQuizzViewModel;
+    private RoomViewModel mQuizzViewModel;  // View model that allows access to the Room
 
     private int nbQuestions = 0;
     private int nbAnswers = 0;
@@ -30,24 +27,25 @@ public class Quizz extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.quizz_layout);
 
-        // Get the current quizz with the intent extra
+        // Get the currently played quizz with the Intent extra
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
         final RoomQuizz rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("id", 0));
-        nbQuestions = rq.getQuestions_list().size();
-        nbAnswers = rq.getAnswers_list().size();
 
-        // Set the title
+        nbQuestions = rq.getQuestions_list().size(); // Get the number of questions
+        nbAnswers = rq.getAnswers_list().size(); // Get the number of answers
+
+        // Set the title with the name of the quizz
         TextView title = findViewById(R.id.quizzID);
         title.setText(rq.getTitle());
 
-        // Set the question
+        // Set the first question
         final TextView question = findViewById(R.id.question);
         if (nbQuestions > 0)
         {
             question.setText(rq.getQuestions(trackID));
         }
 
-        // Set the list of answers
+        // Create the RecyclerView that contains the list of answers
         final RecyclerView recyclerView = findViewById(R.id.answers);
         final QuizzRecyclerAdapter adapter = new QuizzRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -62,7 +60,6 @@ public class Quizz extends AppCompatActivity {
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Return to the main menu activity
                 Intent int_home = new Intent(getApplicationContext(), MainMenu.class);
                 int_home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(int_home);
@@ -70,20 +67,19 @@ public class Quizz extends AppCompatActivity {
         });
 
         // Set the validation button behaviour
-        final Button btn_ok = findViewById(R.id.btn_validate);
-        btn_ok.setOnClickListener(new View.OnClickListener() {
+        final Button btn_validate = findViewById(R.id.btn_validate);
+        btn_validate.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // When we validate our answer, get to the next question/answers
-                if (selectedAnswer == rq.getGood_answer(trackID))
-                {
+                // When we validate our answer, go to the next question
+                if (selectedAnswer == rq.getGood_answer(trackID)) {
                     score++;
                 }
 
                 trackID++;
+
                 // While we have questions
-                if (trackID < nbAnswers && trackID < nbQuestions)
-                {
+                if (trackID < nbAnswers && trackID < nbQuestions) {
                     question.setText(rq.getQuestions(trackID));
                     adapter.setAnswers(rq.getAnswers(trackID));
                     selectedAnswer = -1;
@@ -92,11 +88,12 @@ public class Quizz extends AppCompatActivity {
                 else {
                     question.setText("Score final :\n"+ score + "/" + nbQuestions); // Display the score
 
+                    // Hide the recycler view
                     recyclerView.setVisibility(View.INVISIBLE);
 
                     // Set a new button behaviour
-                    btn_ok.setText("Menu");
-                    btn_ok.setOnClickListener(new View.OnClickListener() {
+                    btn_validate.setText("Menu");
+                    btn_validate.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View v) {
                             // Return to the main menu activity
@@ -110,13 +107,13 @@ public class Quizz extends AppCompatActivity {
         });
     }
 
-    // setSelectedAnswer
-    public void setSelectedAnswer(int nAnswer) {
+    // setSelectedAnswer : function called within the RecyclerView to set the selected answer
+    protected void setSelectedAnswer(int nAnswer) {
         selectedAnswer = nAnswer;
     }
 
-    // getSelectedAnswer
-    public int getSelectedAnswer() {
+    // getSelectedAnswer : function called within the RecyclerView to get the selected answer
+    protected int getSelectedAnswer() {
         return selectedAnswer;
     }
 }

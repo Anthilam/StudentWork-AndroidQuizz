@@ -9,7 +9,7 @@
     xlmns:layout_editor_absoluteY="25dp">
 
     <EditText
-        android:id="@+id/editText"
+        android:id="@+id/answerEditText"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
@@ -17,26 +17,26 @@
         android:ems="10"
         android:inputType="textPersonName"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/btn_update"
+        app:layout_constraintBottom_toTopOf="@+id/btn_updateAnswer"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="1.0" />
 
     <ImageButton
-        android:id="@+id/btn_update"
+        android:id="@+id/btn_updateAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_round_violet_button"
         android:contentDescription="@string/btn_update"
         android:src="@drawable/ic_save_white_24dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/btn_delA"
+        app:layout_constraintEnd_toStartOf="@+id/btn_delAnswer"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent" />
 
     <ImageButton
-        android:id="@+id/btn_delA"
+        android:id="@+id/btn_delAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_round_red_button"
@@ -45,6 +45,6 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
-        app:layout_constraintStart_toEndOf="@+id/btn_update" />
+        app:layout_constraintStart_toEndOf="@+id/btn_updateAnswer" />
 
 </android.support.constraint.ConstraintLayout>

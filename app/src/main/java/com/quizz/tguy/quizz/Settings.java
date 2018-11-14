@@ -11,7 +11,6 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.Toast;
 
@@ -93,7 +92,7 @@ public class Settings extends AppCompatActivity {
 
                             Node rep = itemQ.getLastChild().getPreviousSibling();
                             String repstr = rep.getAttributes().getNamedItem("valeur").getNodeValue();
-                            rq.addQuestionWithAnswers(question, answers, Integer.parseInt(repstr));
+                            rq.addQuestionWithAnswers(question, answers, Integer.parseInt(repstr)-1);
                         }
 
                         list_rq.add(rq);

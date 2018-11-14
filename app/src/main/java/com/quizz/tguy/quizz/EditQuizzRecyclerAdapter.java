@@ -10,20 +10,23 @@ import android.widget.TextView;
 
 import java.util.List;
 
-// SettingsRecyclerAdapter : adapter for the RecyclerView in the main menu
-public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecyclerAdapter.QuestionsViewHolder> {
+// EditQuizzRecyclerAdapter : adapter for the RecyclerView in the EditQuizz activity
+public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecyclerAdapter.QuestionViewHolder> {
 
-    // QuestionsViewHolder : ViewHolder for each item of the RecyclerView
-    class QuestionsViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView quizzItemView;
-        private int id;
+    // QuestionViewHolder : ViewHolder for each item of the RecyclerView
+    class QuestionViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
+        private final TextView questionItemView;    // The item
+        private int id;                             // The id of the question
 
-        private QuestionsViewHolder(View itemView) {
+        private QuestionViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
-            quizzItemView = itemView.findViewById(R.id.quizzItemView);
 
-            itemView.findViewById(R.id.btn_delQ).setOnClickListener(new View.OnClickListener() {
+            // Add an onClick listener for every item of the RecyclerView
+            itemView.setOnClickListener(this);
+            questionItemView = itemView.findViewById(R.id.quizzItemView);
+
+            // Set the delQuestion button behaviour
+            itemView.findViewById(R.id.btn_delQuestion).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
                     ((EditQuizz)mContext).delQuestion(id);
@@ -34,17 +37,17 @@ public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecy
         // onClick
         @Override
         public void onClick(View v) {
-            // Start the quizz selected by the user
+            // Launch the EditQuestion activity
             Context context = v.getContext();
             Intent intent_quizz = new Intent(context, EditQuestion.class);
-            intent_quizz.putExtra("qid", qid); // Put the id of the quizz
-            intent_quizz.putExtra("id", id);
+            intent_quizz.putExtra("qid", qid);  // Put the id of the quizz in the extras
+            intent_quizz.putExtra("id", id);    // Put the id of the question in the extras
             context.startActivity(intent_quizz);
         }
     }
 
     private final LayoutInflater mInflater;
-    private List<String> questions; // Cached copy of all quizzes
+    private List<String> questions; // Cached copy of all questions
     private Context mContext;
     private int qid;
 
@@ -56,31 +59,33 @@ public class EditQuizzRecyclerAdapter extends RecyclerView.Adapter<EditQuizzRecy
 
     // onCreateViewHolder
     @Override
-    public QuestionsViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QuestionViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.editquizz_recyclerview_item, parent, false);
-        return new QuestionsViewHolder(itemView);
+        return new QuestionViewHolder(itemView);
     }
 
     // onBindViewHolder
     @Override
-    public void onBindViewHolder(QuestionsViewHolder holder, int position) {
+    public void onBindViewHolder(QuestionViewHolder holder, int position) {
         if (questions != null) {
             String current = questions.get(position);
-            holder.quizzItemView.setText("Question "+ (position+1) + " : " + current); // Set text with quizz id
-            holder.id = position;
+            // Set the TextView with the question
+            holder.questionItemView.setText("Question "+ (position+1) + " : " + current);
+            holder.id = position; // Set the id
         } else {
             // Covers the case of data not being ready yet.
-            holder.quizzItemView.setText("No ID");
+            holder.questionItemView.setText("No question");
         }
     }
 
-    // setQuizzes : set a new list of quizzes and refresh the view
-    void setQuestions(List<String> questionsList){
+    // setQuizzes : set a new list of questions and refresh the view
+    protected void setQuestions(List<String> questionsList){
         questions = questionsList;
         notifyDataSetChanged();
     }
 
-    void setQuizzId(int qid) {
+    // setQuizzId : set the quizz id
+    protected void setQuizzId(int qid) {
         this.qid = qid;
     }
 

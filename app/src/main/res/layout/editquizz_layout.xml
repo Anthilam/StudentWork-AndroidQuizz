@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
-        android:id="@+id/titleModifQuizz"
+        android:id="@+id/titleEditQuizz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="59dp"
@@ -16,14 +16,14 @@
         android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="30sp"
-        app:layout_constraintBottom_toTopOf="@+id/questionsList"
+        app:layout_constraintBottom_toTopOf="@+id/answersList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/btn_home" />
 
     <TextView
-        android:id="@+id/textModifQuizz"
+        android:id="@+id/txtEditQuizz"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="27dp"
@@ -31,13 +31,13 @@
         android:text="@string/txt_editQuestionExplain"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/questionsList"
+        app:layout_constraintBottom_toTopOf="@+id/answersList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleModifQuizz" />
+        app:layout_constraintTop_toBottomOf="@+id/titleEditQuizz" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/questionsList"
+        android:id="@+id/answersList"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginLeft="10dp"
@@ -48,7 +48,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleModifQuizz"
+        app:layout_constraintTop_toBottomOf="@+id/titleEditQuizz"
         tools:listitem="@layout/editquizz_recyclerview_item" />
 
     <ImageButton
@@ -60,12 +60,12 @@
         android:background="@drawable/ic_round_orange_button"
         android:contentDescription="@string/btn_home"
         android:src="@drawable/ic_home_black_48dp"
-        app:layout_constraintBottom_toTopOf="@+id/titleModifQuizz"
+        app:layout_constraintBottom_toTopOf="@+id/titleEditQuizz"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/btn_addQ"
+        android:id="@+id/btn_addQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_round_green_button"
@@ -75,5 +75,5 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionsList" />
+        app:layout_constraintTop_toBottomOf="@+id/answersList" />
 </android.support.constraint.ConstraintLayout>

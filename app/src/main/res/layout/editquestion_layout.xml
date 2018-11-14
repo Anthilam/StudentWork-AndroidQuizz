@@ -8,7 +8,7 @@
     tools:layout_editor_absoluteY="25dp">
 
     <TextView
-        android:id="@+id/titleModifQuestion"
+        android:id="@+id/titleEditQuestion"
         android:layout_width="wrap_content"
         android:layout_height="38dp"
         android:layout_marginTop="72dp"
@@ -21,7 +21,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/questionsList"
+        android:id="@+id/answersList"
         android:layout_width="0dp"
         android:layout_height="250dp"
         android:layout_margin="10sp"
@@ -50,27 +50,27 @@
         android:inputType="text"
         android:text="@string/txt_defaultQuestion"
         android:textColor="@color/white"
-        app:layout_constraintBottom_toTopOf="@+id/questionsList"
-        app:layout_constraintEnd_toStartOf="@+id/btn_upQ"
+        app:layout_constraintBottom_toTopOf="@+id/answersList"
+        app:layout_constraintEnd_toStartOf="@+id/btn_updateQuestion"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/titleModifQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/titleEditQuestion" />
 
     <ImageButton
-        android:id="@+id/btn_upQ"
+        android:id="@+id/btn_updateQuestion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_round_violet_button"
         android:contentDescription="@string/btn_update"
         android:src="@drawable/ic_save_white_24dp"
-        app:layout_constraintBottom_toTopOf="@+id/questionsList"
+        app:layout_constraintBottom_toTopOf="@+id/answersList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/questionEdit"
-        app:layout_constraintTop_toBottomOf="@+id/titleModifQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/titleEditQuestion" />
 
     <ImageButton
-        android:id="@+id/btn_addA"
+        android:id="@+id/btn_addAnswer"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:background="@drawable/ic_round_green_button"
@@ -80,7 +80,7 @@
         app:layout_constraintEnd_toStartOf="@+id/goodAnswerEdit"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/questionsList" />
+        app:layout_constraintTop_toBottomOf="@+id/answersList" />
 
     <EditText
         android:id="@+id/goodAnswerEdit"

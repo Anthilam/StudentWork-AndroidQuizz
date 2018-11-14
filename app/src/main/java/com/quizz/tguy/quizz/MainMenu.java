@@ -9,16 +9,13 @@ import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.ImageButton;
 
 import java.util.List;
 
-// MainMenu : main activity of the app
+// MainMenu : Main Activity of the application
 public class MainMenu extends AppCompatActivity {
-
-    // View Model to access the Room
-    private RoomViewModel mQuizzViewModel;
+    private RoomViewModel mQuizzViewModel;  // View model that allows access to the Room
 
     // onCreate
     @Override
@@ -26,18 +23,18 @@ public class MainMenu extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.mainmenu_layout);
 
-        // Set settings button behaviour
+        // Set the settings button behaviour
         ImageButton btn_settings = findViewById(R.id.btn_settings);
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Start settings activity
+                // Start the Settings activity
                 Intent int_settings = new Intent(getApplicationContext(), Settings.class);
                 startActivity(int_settings);
             }
         });
 
-        // Fill the main RecyclerView that contains the quizz list
+        // Create the RecyclerView that contains the list of quizz
         RecyclerView recyclerView = findViewById(R.id.quizzList);
         final MainMenuRecyclerAdapter adapter = new MainMenuRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -53,6 +50,7 @@ public class MainMenu extends AppCompatActivity {
         });
     }
 
+    // onRestart : restart the Activity to prevent wrong RecyclerView refreshes
     @Override
     protected void onRestart() {
         super.onRestart();

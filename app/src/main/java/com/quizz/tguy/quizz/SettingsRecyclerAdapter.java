@@ -13,7 +13,7 @@ import java.util.List;
 // SettingsRecyclerAdapter : adapter for the RecyclerView in the main menu
 public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecyclerAdapter.QuizzViewHolder> {
 
-    // QuestionsViewHolder : ViewHolder for each item of the RecyclerView
+    // AnswerViewHolder : ViewHolder for each item of the RecyclerView
     class QuizzViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         private final TextView quizzItemView;
         private int id;

@@ -9,20 +9,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
 
-// EditQuizz : quizz edition menu available in the settings of the app
+// EditQuestion : Activity that allows the complete edition of a question and its answers
 public class EditQuestion extends AppCompatActivity
 {
-    // View Model to access the Room
-    private RoomViewModel mQuizzViewModel;
+    private RoomViewModel mQuizzViewModel;  // View model that allows access to the Room
     private RoomQuizz rq;
-    private int id;
+    private int question_id;
 
     // onCreate
     @Override
@@ -30,34 +28,36 @@ public class EditQuestion extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.editquestion_layout);
 
-        // Get the current quizz with the intent extra
+        // Get the currently edited quizz with the Intent extra
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
         rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("qid", 0));
-        id = getIntent().getIntExtra("id", 0);
+        question_id = getIntent().getIntExtra("id", 0);
 
-        // Set the title
-        TextView title = findViewById(R.id.titleModifQuestion);
-        title.append(" " + (id+1));
+        // Set the title with the question id
+        TextView title = findViewById(R.id.titleEditQuestion);
+        title.append(" " + (question_id +1));
 
+        // Set the first EditText with the question
         final EditText question = findViewById(R.id.questionEdit);
-        question.setText(rq.getQuestions(id));
+        question.setText(rq.getQuestions(question_id));
 
+        // Set the second EditText with the id of the good answer
         final EditText goodAnswer = findViewById(R.id.goodAnswerEdit);
-        goodAnswer.setText(""+rq.getGood_answer(id));
+        goodAnswer.setText(""+rq.getGood_answer(question_id));
 
-        final RecyclerView recyclerView = findViewById(R.id.questionsList);
-        // Fill the main RecyclerView that contains the question list
+        // Create the RecyclerView that contains the list of answers
+        final RecyclerView recyclerView = findViewById(R.id.answersList);
         final EditQuestionRecyclerAdapter adapter = new EditQuestionRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
 
-        // Observe any modification in the question list and adapt the RecyclerView
+        // Observe any modification in the answers list and adapt the RecyclerView
         mQuizzViewModel = ViewModelProviders.of(this).get(RoomViewModel.class);
         mQuizzViewModel.getAllQuizz().observe(this, new Observer<List<RoomQuizz>>() {
             @Override
             public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
-                adapter.setAnswers(rq.getAnswers(id));
-                recyclerView.scrollToPosition(adapter.getItemCount()-1);
+                adapter.setAnswers(rq.getAnswers(question_id));
+                recyclerView.scrollToPosition(adapter.getItemCount()-1); // Scroll to the bottom
             }
         });
 
@@ -66,51 +66,59 @@ public class EditQuestion extends AppCompatActivity
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Return to the main menu
                 Intent int_home = new Intent(getApplicationContext(), MainMenu.class);
                 int_home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(int_home);
             }
         });
 
-        ImageButton btn_upQ = findViewById(R.id.btn_upQ);
-        btn_upQ.setOnClickListener(new View.OnClickListener() {
+        // Set the updateQuestion button behaviour
+        ImageButton btn_updateQuestion = findViewById(R.id.btn_updateQuestion);
+        btn_updateQuestion.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rq.setQuestionInAListOfQuestions(question.getText().toString(), id);
+                // Update the question in the database
+                rq.setQuestionInAListOfQuestions(question.getText().toString(), question_id);
                 mQuizzViewModel.updateQuizz(rq);
             }
         });
 
-        ImageButton btn_addA = findViewById(R.id.btn_addA);
-        btn_addA.setOnClickListener(new View.OnClickListener() {
+        // Set the addAnswer button behaviour
+        ImageButton btn_addAnswer = findViewById(R.id.btn_addAnswer);
+        btn_addAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rq.addAnswerToList("Default", id);
+                // Add an answer in the database
+                rq.addAnswerToList("Default", question_id);
                 mQuizzViewModel.updateQuizz(rq);
             }
         });
 
+        // Set the setGoodAnswer button behaviour
         ImageButton btn_setGoodAnswer = findViewById(R.id.btn_setGoodAnswer);
         btn_setGoodAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                rq.setGood_answer(id, Integer.parseInt(goodAnswer.getText().toString()));
+                // Set the good answer in the database
+                rq.setGood_answer(question_id, Integer.parseInt(goodAnswer.getText().toString()));
                 mQuizzViewModel.updateQuizz(rq);
             }
         });
     }
 
-    void setAnswers(String answer, int index) {
-        rq.setAnswerInAListOfAnswer(answer, id, index);
+    // setAnswers : function called within the RecyclerView to update the answers list
+    protected void setAnswers(String answer, int index) {
+        rq.setAnswerInAListOfAnswer(answer, question_id, index);
         mQuizzViewModel.updateQuizz(rq);
     }
 
-    void delAnswer(int answer) {
-        rq.delAnswerFromList(answer, id);
+    // delAnswer : function called within the RecyclerView to delete an answer in the answers list
+    protected void delAnswer(int answer) {
+        rq.delAnswerFromList(answer, question_id);
         mQuizzViewModel.updateQuizz(rq);
     }
 
+    // onRestart : restart the Activity to prevent wrong RecyclerView refreshes
     @Override
     protected void onRestart() {
         super.onRestart();

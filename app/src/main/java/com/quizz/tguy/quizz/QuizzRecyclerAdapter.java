@@ -1,7 +1,6 @@
 package com.quizz.tguy.quizz;
 
 import android.content.Context;
-import android.graphics.Color;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -11,17 +10,19 @@ import android.widget.TextView;
 
 import java.util.List;
 
-// QuizzRecyclerAdapter : adapter for the RecyclerView in a quizz
+// QuizzRecyclerAdapter : adapter for the RecyclerView in the Quizz activity
 public class QuizzRecyclerAdapter extends RecyclerView.Adapter<QuizzRecyclerAdapter.AnswersViewHolder> {
 
     // AnswersViewHolder : ViewHolder for each item of the RecyclerView
     class AnswersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView answersItemView;
-        private int nAnswer;
+        private final TextView answersItemView; // The item
+        private int nAnswer;                    // The id of answer
 
         private AnswersViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
+
+            // Add an onClick listener for each item of the RecyclerView
+            itemView.setOnClickListener(this);
             answersItemView = itemView.findViewById(R.id.answersItemView);
         }
 
@@ -29,7 +30,7 @@ public class QuizzRecyclerAdapter extends RecyclerView.Adapter<QuizzRecyclerAdap
         @Override
         public void onClick(View v) {
             if (mContext instanceof Quizz) {
-                // Set the selected answer and notify the adapter to actualize button colors
+                // Set the selected answer and refresh the view
                 ((Quizz)mContext).setSelectedAnswer(nAnswer);
                 notifyDataSetChanged();
             }
@@ -58,25 +59,26 @@ public class QuizzRecyclerAdapter extends RecyclerView.Adapter<QuizzRecyclerAdap
     public void onBindViewHolder(QuizzRecyclerAdapter.AnswersViewHolder holder, int position) {
         if (allAnswers != null) {
             String current = allAnswers.get(position);
-            holder.answersItemView.setText(current); // Set answer text
-            holder.nAnswer = position;
+            holder.answersItemView.setText(current);    // Set the answer
+            holder.nAnswer = position;                  // Set the id of the answer
         }
         else {
             // Covers the case of data not being ready yet.
             holder.answersItemView.setText("No answer");
         }
 
-        // Set the selected answer with a visible color
+        // Set the selected answer with a visible color, in this case, green
         if (position == ((Quizz)mContext).getSelectedAnswer()) {
             holder.answersItemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.quizz_item_background_green));
         }
+        // Otherwise, set the other answers with a gray color
         else {
             holder.answersItemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.quizz_item_background_grey));
         }
     }
 
     // setAnswers : set a new list of answers and refresh the view
-    void setAnswers(List<String> answers){
+    protected void setAnswers(List<String> answers){
         allAnswers = answers;
         notifyDataSetChanged();
     }
