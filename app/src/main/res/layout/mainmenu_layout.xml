@@ -15,7 +15,7 @@
         android:layout_marginTop="16dp"
         android:layout_marginBottom="21dp"
         android:contentDescription="@string/txt_logo"
-        android:src="@android:color/holo_orange_dark"
+        android:src="@drawable/logo"
         app:layout_constraintBottom_toTopOf="@+id/quizzList"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
