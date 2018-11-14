@@ -1,26 +1,31 @@
 <resources>
+    <!-- APPNAME -->
     <string name="app_name">Quizz</string>
+    <!-- BUTTONS -->
+    <string name="btn_home">Menu</string>
     <string name="btn_options">Options</string>
+    <string name="btn_editQuizz">Modifier</string>
+    <string name="btn_dlQuizz">Télécharger</string>
+    <string name="btn_addQuestion">Ajouter</string>
+    <string name="btn_delQuestion">Supprimer</string>
+    <string name="btn_addAnswer">Ajouter</string>
+    <string name="btn_delAnswer">Supprimer</string>
+    <string name="btn_addQuizz">Ajouter</string>
+    <string name="btn_delQuizz">Delete</string>
+    <string name="btn_setGoodAnswer">Modiifier</string>
+    <string name="btn_update">Mettre à jour</string>
+    <!-- TXT -->
     <string name="txt_quizzID">Quizz </string>
-    <string name="txt_defaultQuestion">Default question</string>
-    <string name="txt_OK">OK</string>
+    <string name="txt_defaultQuestion">Question par défaut</string>
+    <string name="txt_OK">OK !</string>
     <string name="txt_options">Options</string>
-    <string name="btn_editQuizz">Modifier Quizz</string>
-    <string name="btn_dlQuizz">DL Quizz</string>
-    <string name="txt_editQuizz">Modif Quizz</string>
-    <string name="txt_editExplain">Clic sur une question pour le modifier ou appuie sur + pour en ajouter</string>
-    <string name="txt_dlQuizz">DL Quizz</string>
+    <string name="txt_editQuizz">Edition</string>
+    <string name="txt_editQuizzExplain">Editez, ajoutez et supprimez les quizzs de l\'application</string>
+    <string name="txt_editQuestionExplain">Editez, ajoutez et supprimez une question</string>
+    <string name="txt_dlQuizz">Télécharger des quizzs</string>
     <string name="txt_url">URL</string>
     <string name="txt_logo">Logo</string>
-    <string name="btn_home">Home</string>
     <string name="txt_editQuestion">Question</string>
-    <string name="btn_update">Update</string>
-    <string name="btn_addQ">Add</string>
-    <string name="btn_addA">Add</string>
-    <string name="btn_delA">Delete</string>
-    <string name="btn_addQuizz">Add</string>
-    <string name="btn_delQuizz">Delete</string>
-    <string name="btn_delQ">Delete</string>
-    <string name="btn_setGoodAnswer">Set</string>
     <string name="txt_defaultGoodAnswer">0</string>
+    <string name="txt_goodAnswer">Bonne réponse</string>
 </resources>

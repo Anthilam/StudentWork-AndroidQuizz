@@ -11,6 +11,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -53,7 +54,7 @@ public class EditQuizz extends AppCompatActivity
         });
 
         // Set the home button behaviour
-        Button btn_home = findViewById(R.id.btn_home);
+        ImageButton btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -64,7 +65,7 @@ public class EditQuizz extends AppCompatActivity
             }
         });
 
-        Button btn_addQ = findViewById(R.id.btn_addQ);
+        ImageButton btn_addQ = findViewById(R.id.btn_addQ);
         btn_addQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

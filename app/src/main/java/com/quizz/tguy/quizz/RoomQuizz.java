@@ -29,7 +29,7 @@ public class RoomQuizz {
     @TypeConverters(RoomTypeConverters.class)
     private List<List<String>> answers_list;
 
-    @ColumnInfo(name = "right_answer")
+    @ColumnInfo(name = "good_answer")
     @TypeConverters(RoomTypeConverters.class)
     private List<Integer> good_answer_list;
 
@@ -142,5 +142,9 @@ public class RoomQuizz {
 
     public void setTitle(String title) {
         this.title = title;
+    }
+
+    public int getAnswersCount(int index) {
+        return this.answers_list.get(index).size();
     }
 }

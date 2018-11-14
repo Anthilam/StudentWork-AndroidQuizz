@@ -61,7 +61,7 @@ public class MainMenuRecyclerAdapter extends RecyclerView.Adapter<MainMenuRecycl
             holder.id = allQuizz.get(position).getQuizz_id(); // Set the id for the extra in the intent
         } else {
             // Covers the case of data not being ready yet.
-            holder.quizzItemView.setText("No ID");
+            holder.quizzItemView.setText("Quizz");
         }
     }
 

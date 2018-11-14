@@ -8,11 +8,8 @@ import android.content.Context;
 import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // RoomQuizzDatabase : Room database creation
-@Database(entities = {RoomQuizz.class}, version = 3, exportSchema = false)
+@Database(entities = {RoomQuizz.class}, version = 4, exportSchema = false)
 public abstract class RoomQuizzDatabase extends RoomDatabase {
 
     public abstract RoomDAO dao();
@@ -25,10 +22,10 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
                 if (INSTANCE == null) {
                     // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
-                            RoomQuizzDatabase.class, "word_database")
-                            .addCallback(sRoomDatabaseCallback)
+                            RoomQuizzDatabase.class, "quizz_database")
                             .allowMainThreadQueries()
                             .fallbackToDestructiveMigration()
+                            .addCallback(sRoomDatabaseCallback)
                             .build();
                 }
             }
@@ -37,10 +34,9 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
     }
 
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
-
         @Override
-        public void onOpen (@NonNull SupportSQLiteDatabase db){
-            super.onOpen(db);
+        public void onCreate(@NonNull SupportSQLiteDatabase db){
+            super.onCreate(db);
             new PopulateDbAsync(INSTANCE).execute();
         }
     };
@@ -57,13 +53,7 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
         protected Void doInBackground(final Void... params) {
             mDao.deleteAll();
             RoomQuizz quizz = new RoomQuizz();
-            List<String> l = new ArrayList<>();
-            l.add("RUSH B!");
-            l.add("DAVAI");
-            quizz.setTitle("Russian Quizz");
-            quizz.addQuestionWithAnswers("Cyka Blyat ?", l, 1);
-            mDao.insert(quizz);
-            quizz = new RoomQuizz();
+            quizz.setTitle("Bienvenue!");
             mDao.insert(quizz);
             return null;
         }

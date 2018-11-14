@@ -2,6 +2,7 @@ package com.quizz.tguy.quizz;
 
 import android.content.Context;
 import android.graphics.Color;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,8 +11,8 @@ import android.widget.TextView;
 
 import java.util.List;
 
-// AnswersRecyclerAdapter : adapter for the RecyclerView in a quizz
-public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecyclerAdapter.AnswersViewHolder> {
+// QuizzRecyclerAdapter : adapter for the RecyclerView in a quizz
+public class QuizzRecyclerAdapter extends RecyclerView.Adapter<QuizzRecyclerAdapter.AnswersViewHolder> {
 
     // AnswersViewHolder : ViewHolder for each item of the RecyclerView
     class AnswersViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
@@ -40,21 +41,21 @@ public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecycler
     private Context mContext;
 
     // Constructor
-    AnswersRecyclerAdapter(Context context) {
+    QuizzRecyclerAdapter(Context context) {
         mInflater = LayoutInflater.from(context);
         mContext = context;
     }
 
     // onCreateViewHolder
     @Override
-    public AnswersRecyclerAdapter.AnswersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+    public QuizzRecyclerAdapter.AnswersViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View itemView = mInflater.inflate(R.layout.quizz_recyclerview_item, parent, false);
         return new AnswersViewHolder(itemView);
     }
 
     // onBindViewHolder
     @Override
-    public void onBindViewHolder(AnswersRecyclerAdapter.AnswersViewHolder holder, int position) {
+    public void onBindViewHolder(QuizzRecyclerAdapter.AnswersViewHolder holder, int position) {
         if (allAnswers != null) {
             String current = allAnswers.get(position);
             holder.answersItemView.setText(current); // Set answer text
@@ -67,10 +68,10 @@ public class AnswersRecyclerAdapter extends RecyclerView.Adapter<AnswersRecycler
 
         // Set the selected answer with a visible color
         if (position == ((Quizz)mContext).getSelectedAnswer()) {
-            holder.answersItemView.setBackgroundColor(Color.GREEN);
+            holder.answersItemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.quizz_item_background_green));
         }
         else {
-            holder.answersItemView.setBackgroundColor(Color.GRAY);
+            holder.answersItemView.setBackground(ContextCompat.getDrawable(mContext, R.drawable.quizz_item_background_grey));
         }
     }
 

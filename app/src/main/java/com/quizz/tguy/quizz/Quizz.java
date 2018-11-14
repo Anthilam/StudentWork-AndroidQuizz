@@ -2,12 +2,14 @@ package com.quizz.tguy.quizz;
 
 import android.arch.lifecycle.ViewModelProviders;
 import android.content.Intent;
+import android.media.Image;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 // Quizz : a quizz available in the main menu of the app
@@ -46,17 +48,17 @@ public class Quizz extends AppCompatActivity {
         }
 
         // Set the list of answers
-        RecyclerView recyclerView = findViewById(R.id.answers);
-        final AnswersRecyclerAdapter adapter = new AnswersRecyclerAdapter(this);
+        final RecyclerView recyclerView = findViewById(R.id.answers);
+        final QuizzRecyclerAdapter adapter = new QuizzRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(new GridLayoutManager(this, rq.getAnswersCount(trackID)/2));
         if (nbAnswers > 0)
         {
             adapter.setAnswers(rq.getAnswers(trackID));
         }
 
         // Set the home button behaviour
-        final Button btn_home = findViewById(R.id.btn_home);
+        final ImageButton btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -88,7 +90,9 @@ public class Quizz extends AppCompatActivity {
                 }
                 // If we are out of questions
                 else {
-                    question.setText(score + "/" + nbQuestions); // Display the score
+                    question.setText("Score final :\n"+ score + "/" + nbQuestions); // Display the score
+
+                    recyclerView.setVisibility(View.INVISIBLE);
 
                     // Set a new button behaviour
                     btn_ok.setText("Menu");

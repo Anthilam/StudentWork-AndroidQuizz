@@ -11,6 +11,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import java.util.List;
@@ -56,11 +57,12 @@ public class EditQuestion extends AppCompatActivity
             @Override
             public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
                 adapter.setAnswers(rq.getAnswers(id));
+                recyclerView.scrollToPosition(adapter.getItemCount()-1);
             }
         });
 
         // Set the home button behaviour
-        Button btn_home = findViewById(R.id.btn_home);
+        ImageButton btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -71,7 +73,7 @@ public class EditQuestion extends AppCompatActivity
             }
         });
 
-        Button btn_upQ = findViewById(R.id.btn_upQ);
+        ImageButton btn_upQ = findViewById(R.id.btn_upQ);
         btn_upQ.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -80,17 +82,16 @@ public class EditQuestion extends AppCompatActivity
             }
         });
 
-        Button btn_addA = findViewById(R.id.btn_addA);
+        ImageButton btn_addA = findViewById(R.id.btn_addA);
         btn_addA.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 rq.addAnswerToList("Default", id);
                 mQuizzViewModel.updateQuizz(rq);
-                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
             }
         });
 
-        Button btn_setGoodAnswer = findViewById(R.id.btn_setGoodAnswer);
+        ImageButton btn_setGoodAnswer = findViewById(R.id.btn_setGoodAnswer);
         btn_setGoodAnswer.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

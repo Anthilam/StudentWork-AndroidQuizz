@@ -10,6 +10,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import java.util.List;
 
@@ -26,7 +27,7 @@ public class MainMenu extends AppCompatActivity {
         setContentView(R.layout.mainmenu_layout);
 
         // Set settings button behaviour
-        Button btn_settings = findViewById(R.id.btn_settings);
+        ImageButton btn_settings = findViewById(R.id.btn_settings);
         btn_settings.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

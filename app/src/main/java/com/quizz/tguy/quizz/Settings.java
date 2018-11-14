@@ -12,6 +12,8 @@ import android.support.v7.widget.RecyclerView;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.Toast;
 
 import org.w3c.dom.Document;
 import org.w3c.dom.Element;
@@ -80,7 +82,6 @@ public class Settings extends AppCompatActivity {
                             NodeList answerList = itemQ.getChildNodes().item(1).getChildNodes();
                             for (int k = 0; k < answerList.getLength(); k++) {
                                 if (answerList.item(k).getNodeName().equals("Proposition")) {
-                                    // Il ne passe jamais la meme si le node name est ok
                                     NodeList answer = answerList.item(k).getChildNodes();
                                     String txt = "";
                                     for (int z = 0; z < answer.getLength(); z++) {
@@ -139,23 +140,27 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
                 adapter.setQuizzes(roomAllQuizz);
+                recyclerView.scrollToPosition(adapter.getItemCount()-1);
             }
         });
 
         // Set download button behaviour
-        final Button btn_dlquizz = findViewById(R.id.btn_dlQuizz);
+        final ImageButton btn_dlquizz = findViewById(R.id.btn_dlQuizz);
         btn_dlquizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Toast t = Toast.makeText(getApplicationContext(), "Téléchargement en cours..", Toast.LENGTH_SHORT);
+                t.show();
                 // Download a list of quizz from the url : https://dept-info.univ-fcomte.fr/joomla/images/CR0700/Quizzs.xml
                 XMLAsync xml = new XMLAsync(mQuizzViewModel);
                 xml.execute();
                 adapter.notifyDataSetChanged();
+                t.cancel();
             }
         });
 
         // Set the home button behaviour
-        Button btn_home = findViewById(R.id.btn_home);
+        ImageButton btn_home = findViewById(R.id.btn_home);
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -166,20 +171,11 @@ public class Settings extends AppCompatActivity {
             }
         });
 
-        final Button btn_addQuizz = findViewById(R.id.btn_addQuizz);
+        final ImageButton btn_addQuizz = findViewById(R.id.btn_addQuizz);
         btn_addQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 mQuizzViewModel.insert(new RoomQuizz());
-                recyclerView.scrollToPosition(recyclerView.getAdapter().getItemCount()-1);
-                /* Button delay if Primary key duplication
-                btn_addQuizz.setEnabled(false);
-                btn_addQuizz.postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                        btn_addQuizz.setEnabled(true);
-                    }
-                }, 500);*/
             }
         });
     }

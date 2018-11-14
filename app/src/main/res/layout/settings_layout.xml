@@ -4,63 +4,85 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/darkgray"
     tools:layout_editor_absoluteY="25dp">
-
-    <Button
-        android:id="@+id/btn_dlQuizz"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginBottom="33dp"
-        android:text="@string/btn_dlQuizz"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/btn_addQuizz" />
 
     <TextView
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="36dp"
-        android:layout_marginTop="52dp"
-        android:layout_marginBottom="42dp"
+        android:layout_marginBottom="89dp"
         android:text="@string/txt_options"
+        android:textColor="@color/white"
         android:textSize="30sp"
         app:layout_constraintBottom_toTopOf="@+id/quizzListSettings"
-        app:layout_constraintStart_toEndOf="@+id/btn_home"
-        app:layout_constraintTop_toTopOf="parent" />
-
-    <Button
-        android:id="@+id/btn_home"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:layout_marginBottom="87dp"
-        android:text="@string/btn_home"
-        app:layout_constraintBottom_toTopOf="@+id/quizzListSettings"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/btn_home" />
+
+    <TextView
+        android:id="@+id/textModifQuizz"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="42dp"
+        android:layout_marginEnd="42dp"
+        android:text="@string/txt_editQuizzExplain"
+        android:textAlignment="center"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toTopOf="@+id/quizzListSettings"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/textView" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/quizzListSettings"
-        android:layout_width="0dp"
+        android:layout_width="350dp"
         android:layout_height="0dp"
-        android:layout_marginBottom="29dp"
-        android:background="@android:color/darker_gray"
-        android:textAlignment="center"
-        app:layout_constraintBottom_toTopOf="@+id/btn_addQuizz"
+        android:layout_marginBottom="21dp"
+        android:padding="10dp"
+        app:layout_constraintBottom_toTopOf="@+id/btn_dlQuizz"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"
         tools:listitem="@layout/settings_recyclerview_item" />
 
-    <Button
+    <ImageButton
+        android:id="@+id/btn_home"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="10dp"
+        android:layout_marginTop="10dp"
+        android:background="@drawable/ic_round_orange_button"
+        android:contentDescription="@string/btn_home"
+        android:src="@drawable/ic_home_black_48dp"
+        app:layout_constraintBottom_toTopOf="@+id/textView"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageButton
         android:id="@+id/btn_addQuizz"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="10dp"
-        android:text="@string/btn_addQuizz"
-        app:layout_constraintBottom_toTopOf="@+id/btn_dlQuizz"
-        app:layout_constraintStart_toStartOf="@+id/btn_dlQuizz"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ic_round_green_button"
+        android:contentDescription="@string/btn_addQuizz"
+        android:src="@drawable/ic_add_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toStartOf="@+id/btn_dlQuizz"
+        app:layout_constraintStart_toStartOf="parent" />
+
+    <ImageButton
+        android:id="@+id/btn_dlQuizz"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="24dp"
+        android:background="@drawable/ic_round_cyanblue_button"
+        android:contentDescription="@string/btn_dlQuizz"
+        android:src="@drawable/ic_cloud_download_white_48dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/btn_addQuizz"
         app:layout_constraintTop_toBottomOf="@+id/quizzListSettings" />
 </android.support.constraint.ConstraintLayout>
