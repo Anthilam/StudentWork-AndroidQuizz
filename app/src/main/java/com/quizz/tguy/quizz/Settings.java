@@ -31,23 +31,25 @@ import java.util.List;
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
 
-// Settings : settings menu available in the main menu of the app
-public class Settings extends AppCompatActivity {
-    // View Model to access the Room
-    private RoomViewModel mQuizzViewModel;
+// Settings : Activity that allows the user to edit all the quizz of the application
+public class Settings extends AppCompatActivity
+{
+    private RoomViewModel mQuizzViewModel;  // View model that allows access to the Room
 
+    // XMLAsync : AsyncTask that allows the user to download a set of Quizz from https://dept-info.univ-fcomte.fr/joomla/images/CR0700/Quizzs.xml
     private static class XMLAsync extends AsyncTask<Void, Void, RoomQuizz> {
         BufferedReader bufferedReader = null;
         HttpURLConnection urlConnection = null ;
 
-        private final RoomViewModel viewModel;
+        private final RoomViewModel viewModel; // View model that allows access to the Room
 
+        // Constructor
         XMLAsync(RoomViewModel vm) {
             viewModel = vm;
         }
 
+        // doInBackground
         protected RoomQuizz doInBackground(final Void... params) {
-
             List<RoomQuizz> list_rq = new ArrayList<>();
 
             try {
@@ -64,7 +66,10 @@ public class Settings extends AppCompatActivity {
                     Document doc = db.parse(inputStream);
                     doc.getDocumentElement().normalize();
 
+                    // Get the list of quizz
                     Node channelElement = doc.getElementsByTagName("Quizzs").item(0);
+
+                    // For each quizz
                     NodeList quizzList = ((Element) channelElement).getElementsByTagName("Quizz");
                     for (int i = 0; i < quizzList.getLength(); i++) {
                         RoomQuizz rq = new RoomQuizz("XML Quizz");
@@ -72,11 +77,13 @@ public class Settings extends AppCompatActivity {
                         String title = ((Element) quizz).getAttribute("type");
                         rq.setTitle(title);
 
+                        // Get the list of questions
                         NodeList questionList = ((Element) quizz).getElementsByTagName("Question");
                         for (int j = 0; j < questionList.getLength(); j++) {
                             Node itemQ = questionList.item(j);
                             String question = itemQ.getChildNodes().item(0).getNodeValue().trim();
 
+                            // Get the list of answers
                             List<String> answers = new ArrayList<>();
                             NodeList answerList = itemQ.getChildNodes().item(1).getChildNodes();
                             for (int k = 0; k < answerList.getLength(); k++) {
@@ -90,11 +97,15 @@ public class Settings extends AppCompatActivity {
                                 }
                             }
 
+                            // Get the value of the good answer
                             Node rep = itemQ.getLastChild().getPreviousSibling();
                             String repstr = rep.getAttributes().getNamedItem("valeur").getNodeValue();
+
+                            // Add the questions with its answers and good answer to the quizz
                             rq.addQuestionWithAnswers(question, answers, Integer.parseInt(repstr)-1);
                         }
 
+                        // Add the quizz to the list of quizz
                         list_rq.add(rq);
                     }
                 } else {
@@ -111,8 +122,12 @@ public class Settings extends AppCompatActivity {
                         Log.e("XMLError", "Error closing bufferedReader");
                     }
                 }
-                if (urlConnection != null) urlConnection.disconnect();
 
+                if (urlConnection != null) {
+                    urlConnection.disconnect();
+                }
+
+                // Insert all the quizz in the database
                 for (int i = 0; i < list_rq.size(); ++i) {
                     viewModel.insert(list_rq.get(i));
                 }
@@ -122,12 +137,13 @@ public class Settings extends AppCompatActivity {
         }
     }
 
+    // onCreate
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.settings_layout);
 
-        // Fill the main RecyclerView that contains the quizz list
+        // Create the RecyclerView that contains the list of quizz
         final RecyclerView recyclerView = findViewById(R.id.quizzListSettings);
         final SettingsRecyclerAdapter adapter = new SettingsRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
@@ -139,11 +155,11 @@ public class Settings extends AppCompatActivity {
             @Override
             public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
                 adapter.setQuizzes(roomAllQuizz);
-                recyclerView.scrollToPosition(adapter.getItemCount()-1);
+                recyclerView.scrollToPosition(adapter.getItemCount()-1); // Scroll to the bottom of the RecyclerView
             }
         });
 
-        // Set download button behaviour
+        // Set the dlQuizz button behaviour
         final ImageButton btn_dlquizz = findViewById(R.id.btn_dlQuizz);
         btn_dlquizz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -163,13 +179,13 @@ public class Settings extends AppCompatActivity {
         btn_home.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                // Return to the main menu
                 Intent int_home = new Intent(getApplicationContext(), MainMenu.class);
                 int_home.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
                 startActivity(int_home);
             }
         });
 
+        // Set the addQuizz button behaviour
         final ImageButton btn_addQuizz = findViewById(R.id.btn_addQuizz);
         btn_addQuizz.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,10 +195,12 @@ public class Settings extends AppCompatActivity {
         });
     }
 
+    // delQuizz : function called within the RecyclerView to delete a quizz
     protected void delQuizz(int index) {
         mQuizzViewModel.delete(mQuizzViewModel.getAllQuizz().getValue().get(index));
     }
 
+    // onRestart : restart the Activity to prevent wrong RecyclerView refreshes
     @Override
     protected void onRestart() {
         super.onRestart();

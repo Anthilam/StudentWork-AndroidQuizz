@@ -10,20 +10,25 @@ import android.widget.TextView;
 
 import java.util.List;
 
-// SettingsRecyclerAdapter : adapter for the RecyclerView in the main menu
+// SettingsRecyclerAdapter : adapter for the RecyclerView in the Settings activity
 public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecyclerAdapter.QuizzViewHolder> {
 
-    // AnswerViewHolder : ViewHolder for each item of the RecyclerView
+    // QuizzViewHolder : ViewHolder for each item of the RecyclerView
     class QuizzViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
-        private final TextView quizzItemView;
-        private int id;
-        private int listpos;
+        private final TextView quizzItemView;   // The item
+        private int id;                         // The id of the item
+        private int listpos;                    // The position of the item in the list
 
         private QuizzViewHolder(View itemView) {
             super(itemView);
-            itemView.setOnClickListener(this); // Add an onClick listener for every item of the RecyclerView
+
+            // Get the TextView
             quizzItemView = itemView.findViewById(R.id.quizzItemView);
 
+            // Add an onClick listener for each item of the RecyclerView
+            itemView.setOnClickListener(this);
+
+            // Set the delQuizz button behaviour
             itemView.findViewById(R.id.btn_delQuizz).setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -35,10 +40,10 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
         // onClick
         @Override
         public void onClick(View v) {
-            // Start the quizz selected by the user
+            // Start the EditQuizz activity when the user touch a quizz
             Context context = v.getContext();
             Intent intent_quizz = new Intent(context, EditQuizz.class);
-            intent_quizz.putExtra("id", id); // Put the id of the quizz
+            intent_quizz.putExtra("id", id); // Put the id of the quizz in the extras
             context.startActivity(intent_quizz);
         }
     }
@@ -65,12 +70,12 @@ public class SettingsRecyclerAdapter extends RecyclerView.Adapter<SettingsRecycl
     public void onBindViewHolder(QuizzViewHolder holder, int position) {
         if (allQuizz != null) {
             RoomQuizz current = allQuizz.get(position);
-            holder.quizzItemView.setText(current.getTitle()); // Set text with quizz id
-            holder.id = current.getQuizz_id(); // Set the id for the extra in the intent
-            holder.listpos = position;
+            holder.quizzItemView.setText(current.getTitle());   // Set text with quizz id
+            holder.id = current.getQuizz_id();                  // Set the id
+            holder.listpos = position;                          // Set the position
         } else {
             // Covers the case of data not being ready yet.
-            holder.quizzItemView.setText("No ID");
+            holder.quizzItemView.setText("No quizz");
         }
     }
 

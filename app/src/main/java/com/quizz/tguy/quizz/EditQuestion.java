@@ -39,11 +39,11 @@ public class EditQuestion extends AppCompatActivity
 
         // Set the first EditText with the question
         final EditText question = findViewById(R.id.questionEdit);
-        question.setText(rq.getQuestions(question_id));
+        question.setText(rq.getQuestion(question_id));
 
         // Set the second EditText with the id of the good answer
         final EditText goodAnswer = findViewById(R.id.goodAnswerEdit);
-        goodAnswer.setText(""+rq.getGood_answer(question_id));
+        goodAnswer.setText(""+rq.getGoodAnswer(question_id));
 
         // Create the RecyclerView that contains the list of answers
         final RecyclerView recyclerView = findViewById(R.id.answersList);
@@ -57,7 +57,7 @@ public class EditQuestion extends AppCompatActivity
             @Override
             public void onChanged(@Nullable final List<RoomQuizz> roomAllQuizz) {
                 adapter.setAnswers(rq.getAnswers(question_id));
-                recyclerView.scrollToPosition(adapter.getItemCount()-1); // Scroll to the bottom
+                recyclerView.scrollToPosition(adapter.getItemCount()-1); // Scroll to the bottom of the RecyclerView
             }
         });
 
@@ -100,7 +100,7 @@ public class EditQuestion extends AppCompatActivity
             @Override
             public void onClick(View v) {
                 // Set the good answer in the database
-                rq.setGood_answer(question_id, Integer.parseInt(goodAnswer.getText().toString()));
+                rq.setGoodAnswer(question_id, Integer.parseInt(goodAnswer.getText().toString()));
                 mQuizzViewModel.updateQuizz(rq);
             }
         });

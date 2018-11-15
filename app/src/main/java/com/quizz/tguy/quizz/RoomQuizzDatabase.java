@@ -9,18 +9,18 @@ import android.os.AsyncTask;
 import android.support.annotation.NonNull;
 
 // RoomQuizzDatabase : Room database creation
-@Database(entities = {RoomQuizz.class}, version = 4, exportSchema = false)
+@Database(entities = {RoomQuizz.class}, version = 5, exportSchema = false)
 public abstract class RoomQuizzDatabase extends RoomDatabase {
 
-    public abstract RoomDAO dao();
+    public abstract RoomDAO dao(); // DAO
 
-    private static volatile RoomQuizzDatabase INSTANCE;
+    private static volatile RoomQuizzDatabase INSTANCE; // Instance of the database
 
+    // getDatabase : get the database
     static RoomQuizzDatabase getDatabase(final Context context) {
         if (INSTANCE == null) {
             synchronized (RoomQuizzDatabase.class) {
                 if (INSTANCE == null) {
-                    // Create database here
                     INSTANCE = Room.databaseBuilder(context.getApplicationContext(),
                             RoomQuizzDatabase.class, "quizz_database")
                             .allowMainThreadQueries()
@@ -33,26 +33,29 @@ public abstract class RoomQuizzDatabase extends RoomDatabase {
         return INSTANCE;
     }
 
+    // RoomDatabase.Callback : callback used when we create the database
     private static RoomDatabase.Callback sRoomDatabaseCallback = new RoomDatabase.Callback(){
         @Override
         public void onCreate(@NonNull SupportSQLiteDatabase db){
             super.onCreate(db);
-            new PopulateDbAsync(INSTANCE).execute();
+            new PopulateDbAsync(INSTANCE).execute(); // Pre-populate the database
         }
     };
 
+    // PopulateDbAsync : pre-populate the database in an AsyncTask
     private static class PopulateDbAsync extends AsyncTask<Void, Void, Void> {
+        private final RoomDAO mDao; // DAO
 
-        private final RoomDAO mDao;
-
+        // Constructor
         PopulateDbAsync(RoomQuizzDatabase db) {
             mDao = db.dao();
         }
 
+        // doInBackground
         @Override
         protected Void doInBackground(final Void... params) {
-            mDao.deleteAll();
-            RoomQuizz quizz = new RoomQuizz();
+            mDao.deleteAll();                   // Delete the database
+            RoomQuizz quizz = new RoomQuizz();  // Create a new default quizz
             quizz.setTitle("Bienvenue!");
             mDao.insert(quizz);
             return null;

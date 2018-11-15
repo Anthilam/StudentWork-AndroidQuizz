@@ -23,7 +23,7 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/answersList"
         android:layout_width="0dp"
-        android:layout_height="250dp"
+        android:layout_height="0dp"
         android:layout_margin="10sp"
         app:layout_constraintBottom_toTopOf="@+id/txt_goodAnswer"
         app:layout_constraintEnd_toEndOf="parent"
@@ -47,6 +47,7 @@
         android:id="@+id/questionEdit"
         android:layout_width="250dp"
         android:layout_height="wrap_content"
+        android:layout_margin="20dp"
         android:inputType="text"
         android:text="@string/txt_defaultQuestion"
         android:textColor="@color/white"
@@ -67,7 +68,8 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toEndOf="@+id/questionEdit"
-        app:layout_constraintTop_toBottomOf="@+id/titleEditQuestion" />
+        app:layout_constraintTop_toBottomOf="@+id/titleEditQuestion"
+        app:layout_constraintVertical_bias="0.482" />
 
     <ImageButton
         android:id="@+id/btn_addAnswer"

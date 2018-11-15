@@ -42,14 +42,16 @@ public class Quizz extends AppCompatActivity {
         final TextView question = findViewById(R.id.question);
         if (nbQuestions > 0)
         {
-            question.setText(rq.getQuestions(trackID));
+            question.setText(rq.getQuestion(trackID));
         }
 
         // Create the RecyclerView that contains the list of answers
         final RecyclerView recyclerView = findViewById(R.id.answers);
         final QuizzRecyclerAdapter adapter = new QuizzRecyclerAdapter(this);
         recyclerView.setAdapter(adapter);
-        recyclerView.setLayoutManager(new GridLayoutManager(this, rq.getAnswersCount(trackID)/2));
+        int a = Math.round(rq.getAnswersCount(trackID)/2) > 4 ? 4 : Math.round(rq.getAnswersCount(trackID)/2);
+
+        recyclerView.setLayoutManager(new GridLayoutManager(this, a));
         if (nbAnswers > 0)
         {
             adapter.setAnswers(rq.getAnswers(trackID));
@@ -72,7 +74,7 @@ public class Quizz extends AppCompatActivity {
             @Override
             public void onClick(View v) {
                 // When we validate our answer, go to the next question
-                if (selectedAnswer == rq.getGood_answer(trackID)) {
+                if (selectedAnswer == rq.getGoodAnswer(trackID)) {
                     score++;
                 }
 
@@ -80,7 +82,7 @@ public class Quizz extends AppCompatActivity {
 
                 // While we have questions
                 if (trackID < nbAnswers && trackID < nbQuestions) {
-                    question.setText(rq.getQuestions(trackID));
+                    question.setText(rq.getQuestion(trackID));
                     adapter.setAnswers(rq.getAnswers(trackID));
                     selectedAnswer = -1;
                 }
