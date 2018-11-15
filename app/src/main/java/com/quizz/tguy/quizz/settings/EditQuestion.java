@@ -1,4 +1,4 @@
-package com.quizz.tguy.quizz;
+package com.quizz.tguy.quizz.settings;
 
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
@@ -12,6 +12,11 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+
+import com.quizz.tguy.quizz.MainMenu;
+import com.quizz.tguy.quizz.R;
+import com.quizz.tguy.quizz.room.RoomQuizz;
+import com.quizz.tguy.quizz.room.RoomViewModel;
 
 import java.util.List;
 

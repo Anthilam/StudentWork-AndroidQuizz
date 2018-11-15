@@ -1,4 +1,4 @@
-package com.quizz.tguy.quizz;
+package com.quizz.tguy.quizz.room;
 
 import android.arch.persistence.db.SupportSQLiteDatabase;
 import android.arch.persistence.room.Database;

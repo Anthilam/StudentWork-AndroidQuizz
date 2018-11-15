@@ -11,6 +11,9 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.quizz.tguy.quizz.room.RoomQuizz;
+import com.quizz.tguy.quizz.room.RoomViewModel;
+
 // Quizz : Activity representing a playable quizz
 public class Quizz extends AppCompatActivity {
     private RoomViewModel mQuizzViewModel;  // View model that allows access to the Room

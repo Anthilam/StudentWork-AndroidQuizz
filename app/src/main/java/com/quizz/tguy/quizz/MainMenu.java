@@ -11,6 +11,10 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 
+import com.quizz.tguy.quizz.room.RoomQuizz;
+import com.quizz.tguy.quizz.room.RoomViewModel;
+import com.quizz.tguy.quizz.settings.Settings;
+
 import java.util.List;
 
 // MainMenu : Main Activity of the application

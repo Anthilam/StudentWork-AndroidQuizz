@@ -1,4 +1,4 @@
-package com.quizz.tguy.quizz;
+package com.quizz.tguy.quizz.room;
 
 import android.app.Application;
 import android.arch.lifecycle.AndroidViewModel;
@@ -20,7 +20,7 @@ public class RoomViewModel extends AndroidViewModel {
     }
 
     // getAllQuizz : get all the quizz
-    LiveData<List<RoomQuizz>> getAllQuizz() {
+    public LiveData<List<RoomQuizz>> getAllQuizz() {
         return allQuizz;
     }
 
@@ -35,12 +35,12 @@ public class RoomViewModel extends AndroidViewModel {
     }
 
     // updateQuizz : update a quizz in the database
-    void updateQuizz(RoomQuizz quizz) {
+    public void updateQuizz(RoomQuizz quizz) {
         mRepository.updateQuizz(quizz);
     }
 
     // delete : delete a quizz in the database
-    void delete(RoomQuizz rq) {
+    public void delete(RoomQuizz rq) {
         mRepository.delete(rq);
     }
 }

@@ -8,6 +8,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.quizz.tguy.quizz.room.RoomQuizz;
+
 import java.util.List;
 
 // MainMenuRecyclerAdapter : adapter for the RecyclerView in the MainMenu activity

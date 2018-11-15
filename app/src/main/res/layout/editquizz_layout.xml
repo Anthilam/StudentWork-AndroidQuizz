@@ -28,6 +28,7 @@
         android:layout_height="wrap_content"
         android:layout_margin="20dp"
         android:text="@string/txt_editQuestionExplain"
+        android:textAlignment="center"
         android:textColor="@color/white"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/answersList"
