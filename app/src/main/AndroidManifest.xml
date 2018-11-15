@@ -12,17 +12,17 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
 
-        <activity android:name=".MainMenu">
+        <activity android:name=".MainMenu" android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
 
-        <activity android:name=".settings.Settings"></activity>
-        <activity android:name=".Quizz"></activity>
-        <activity android:name=".settings.EditQuizz"></activity>
-        <activity android:name=".settings.EditQuestion"></activity>
+        <activity android:name=".settings.Settings" android:screenOrientation="portrait"></activity>
+        <activity android:name=".Quizz" android:screenOrientation="portrait"></activity>
+        <activity android:name=".settings.EditQuizz" android:screenOrientation="portrait"></activity>
+        <activity android:name=".settings.EditQuestion" android:screenOrientation="portrait"></activity>
     </application>
 
 </manifest>
