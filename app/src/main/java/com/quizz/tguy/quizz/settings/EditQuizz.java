@@ -12,6 +12,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quizz.tguy.quizz.MainMenu;
 import com.quizz.tguy.quizz.R;
@@ -37,8 +38,8 @@ public class EditQuizz extends AppCompatActivity
         rq = mQuizzViewModel.getQuizzById(getIntent().getIntExtra("id", 0));
 
         // Set the title with the name of the quizz
-        TextView title = findViewById(R.id.titleEditQuizz);
-        title.append("\n" + rq.getTitle());
+        final TextView titleEdit = findViewById(R.id.editTitleQuizz);
+        titleEdit.setText(rq.getTitle());
 
         // Create the RecyclerView that contains the list of questions
         final RecyclerView recyclerView = findViewById(R.id.answersList);
@@ -79,6 +80,16 @@ public class EditQuizz extends AppCompatActivity
                 intent_quizz.putExtra("qid", rq.getQuizz_id()); // Put the quizz id in the extras
                 intent_quizz.putExtra("id", rq.getQuestions_list().size()-1); // Put the question id in the extras
                 context.startActivity(intent_quizz);
+            }
+        });
+
+        ImageButton btn_setTitle = findViewById(R.id.btn_setTitle);
+        btn_setTitle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                rq.setTitle(titleEdit.getText().toString());
+                mQuizzViewModel.updateQuizz(rq);
+                Toast.makeText(getApplicationContext(), "Titre sauvegardé", Toast.LENGTH_SHORT).show();
             }
         });
     }

@@ -169,13 +169,11 @@ public class Settings extends AppCompatActivity
         btn_dlquizz.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Toast t = Toast.makeText(getApplicationContext(), "Téléchargement en cours..", Toast.LENGTH_SHORT);
-                t.show();
+                Toast.makeText(getApplicationContext(), "Téléchargement en cours..", Toast.LENGTH_SHORT).show();
                 // Download a list of quizz from the url : https://dept-info.univ-fcomte.fr/joomla/images/CR0700/Quizzs.xml
                 XMLAsync xml = new XMLAsync(mQuizzViewModel);
                 xml.execute();
                 adapter.notifyDataSetChanged();
-                t.cancel();
             }
         });
 

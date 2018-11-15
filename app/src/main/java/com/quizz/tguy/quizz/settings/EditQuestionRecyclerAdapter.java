@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quizz.tguy.quizz.R;
 
@@ -27,6 +28,7 @@ public class EditQuestionRecyclerAdapter extends RecyclerView.Adapter<EditQuesti
                 @Override
                 public void onClick(View v) {
                     ((EditQuestion)mContext).setAnswers(answerItemView.getText().toString(), id);
+                    Toast.makeText(mContext, "Réponse sauvegardée", Toast.LENGTH_SHORT).show();
                 }
             });
 

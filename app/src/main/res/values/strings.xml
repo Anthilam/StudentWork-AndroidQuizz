@@ -27,5 +27,5 @@
     <string name="txt_logo">Logo</string>
     <string name="txt_editQuestion">Question</string>
     <string name="txt_defaultGoodAnswer">0</string>
-    <string name="txt_goodAnswer">Bonne réponse</string>
+    <string name="txt_goodAnswer">Bonne réponse (Q1 = 0)</string>
 </resources>

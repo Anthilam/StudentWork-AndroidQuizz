@@ -148,6 +148,14 @@ public class RoomQuizz {
 
     // setGoodAnswer : set a good answer in the list of good answers
     public void setGoodAnswer(int index, int goodAnswer) {
+        if (goodAnswer < 0) {
+            goodAnswer = 0;
+        }
+
+        if (goodAnswer > this.getAnswersCount(index)) {
+            goodAnswer = this.getAnswersCount(index)-1;
+        }
+
         this.goodAnswers_list.set(index, goodAnswer);
     }
 

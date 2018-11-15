@@ -12,6 +12,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.quizz.tguy.quizz.MainMenu;
 import com.quizz.tguy.quizz.R;
@@ -85,6 +86,7 @@ public class EditQuestion extends AppCompatActivity
                 // Update the question in the database
                 rq.setQuestionInAListOfQuestions(question.getText().toString(), question_id);
                 mQuizzViewModel.updateQuizz(rq);
+                Toast.makeText(getApplicationContext(), "Question sauvegardée", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -107,6 +109,7 @@ public class EditQuestion extends AppCompatActivity
                 // Set the good answer in the database
                 rq.setGoodAnswer(question_id, Integer.parseInt(goodAnswer.getText().toString()));
                 mQuizzViewModel.updateQuizz(rq);
+                Toast.makeText(getApplicationContext(), "Bonne réponse sauvegardée", Toast.LENGTH_SHORT).show();
             }
         });
     }
